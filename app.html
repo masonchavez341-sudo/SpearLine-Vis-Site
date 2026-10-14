@@ -5,169 +5,246 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SpearLine Vis</title>
 <meta name="description" content="7-day underwater visibility forecast for Malibu, Palos Verdes, Ventura, Catalina and the Channel Islands.">
-<meta name="theme-color" content="#eef2f5" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0a0f15" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#04121f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="SpearLine Vis">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAACXBIWXMAAAsTAAALEwEAmpwYAAAUpElEQVR42u2cZ3Ab55nHIYmdYqdIihR7EavYABaw9yb2LlKiREsudO7GvtzcOIplyY7HkRM5sT/dXGYyc3OfkziOJauTcpK5j7m4JG6T8jmWb5yzI3tMSrr/+77AcrFYLAASABfc551nMNRidwHs83v/T9l3ZTp28nEyMlUz0SUgIzjICA4ygoOM4CAjOMgIDjKCg4zgICM4yAgOMjKCg4zgICM4yAgOMoKDjOAgIzjICA4ygoOM4CAjIzjICA4ygoOM4CAjOMgIDjKCg4zgICM4yAgOMjKCg4zgICM4yAgOw9ni8sr80mMwgoNs0xZOPn58eWV87uTCqSeWzvxTIPkgODQdc+oJbiuYuJJhi3hXTGXY3NKjcye4LT0qbZQOVxwrHe6JAQucdnhq8XsXf/TG5Ws4luDYORQcCYBjZhYemZw/NTZzYmRq4ej4/ODoTP/wdN/Ryd6hiZ7B8e6Bsa5+YaPc2N/YiLewQ9/w1MDI9ODo7NGJ+dGpxfHZpan5UzOLp3Fa8XEaxIjtozMnTq88ff3m2oMHD168+KPx2ZPYTnAEiIbF5SckFGaPn2YcTB8/Oj7XPzLVMzgBf3f0Drf3HG3rHpKsvQd2VGEdTluEyQ/kxx7t7BvBaXHy/pFpQDM2cxzEzB4/I8flxOlvTXKM/uOn/3X3s/99+PDh1eu3RqaPB5IMw8EhaYPQZ1z9idml4YljEIPuwXG4TXKnIABk+MMU6AhiegbGB0ZmwAo0ZnBs/uyFlz746JOHfICPMyv/AoC8CkkEh4fyABpWuDacmZw7aaNhYExSBdvs9w8KHlpX/wheaxvah8ZmfvmryxsbG8BifZ29/vtP/nN0ZglyIs94CI5tAoHr+BiShvGZE0Pjc71Dk5I26IEGyfCtQGpja29zx8APXnnt7mefAYj79++vr6/jj9/9/l18YWQ5iEHjsyegdtA82Q8kODzrBNjjxaNTx5YhzgOjM90D40we7OqtExrkBixauwYt1o7Hnnz6nffeBw3IPUEGXgUij3/r6YaWHgAkYhAOQbaLvBi50fTCI46g+JgVU4DDmM/lQeRocyfOIIMbnlzoH57qGhjt6Blu0zEQNiz6R+FyYIH89/U3bHFEwmJj4z5ef/76ryxNnSICylMWCRS8hYIIMwHzAUWQDRQfiYpp+tiyjL4VPbMitQ0Wlp+YP/m4SCdRXkJy5fFCtzQ4xZGe5o7+ly+9dveuLY5giAxU8PG3v306MjkPXcH+GrmtNA1QRWNuDE8em5hbEuWPojHjNRyCPpRVIzjp/MnZxdPymL2zrGw2kexdB8yPER4venhxoX950IwjT73zri2OQDYEEGIISl5+5VWLVSkbbusgqfxBo2VobBblz7QkKqe8a8SZ7JWVrKYaZDUVB/DkjD2qyaXFH8TYe5EOAgb8p+aXR6cX8SORTqI9IJ8oQQSEvR5hccRsjyOiEpHiiIKM3/3POy2dAxqa4SkoiD49+Ogx6CuyctZWObasaKu48qnJRRW+6QCQy847NofABhlHEoRTS8TIW8sSOtq2ub/sa7Fe5OIj9h7UPErNHmXjIfho8DyOSEOeh2J/0YXzgdnbKu1CAtCFG5pgEjBxDLhMOvZtpW6QycOOjeQhoS74qb1HJ5EKAUZoDOsNz5yA0qDZBxEDQJAcfJ5k2AJg8S7aDOgig4CRSVs3GuSBA0UvUlelpk/iiNnayePIe4p6RDFEWqqah/qhETckn3hdvOvfPzwJp8A1uF1g2l6PT9YY9sCjzk3l9t3FgWocEfXIL375phRHnAXDIQ/91H0e6te+bbvdO6Zd6RWdxZFXNeKIc7bxg0uveZuH+skIDl9jgSaVLY4o65GHmsOeh767zTyU4NB5PdJpjyProp2lLRicnod+yUMJDh3GkU/v3vUkjsjy0PuByUMJjp3ra6247GtpyobIQ+/uSB5KcPi9rzWsdn/Ew2Hrh15CP7RDP7JBcGw3lNQ3dyGUXPzhjz2sR1znoe/oJw8lOHxABkLAU//6nT//5a8iNKyzseGVbDx4yG/AivvyuslDCQ7fdI2ePf/i1es3//DHD+7d+0qhBxsb7kEReejPfvGGThobBIcvra65q6ahDRIyu7h8/vnv/+z1Nz786JOvvvo6qPNQgsNnCWn3AIsFqGDrmrogAOg6zy0uP/fCS9CDDz/6+Kuvv3afhzbpUTYIDl9SgvUTMLgZfEBR4HJrW9/KP39b8KF+X/73esxDCQ4fJ6csxDR1WrjVt3SL55qwsam974MPP5ZokPdDkZRg3SjWFestDyU4fPlIAaSipWvgpZdfWbvz69U7v8EfyCGwsWdwDMQgvkj34oMiDyU4fBZNAEFr99Da27+1LdTgsnDr9h3wgXcRX5B/yJVjc33ohE7zUILDl2T8+rf/zR9AWt/gQ9xve/Hipfrmbrh/bvERUb9Iq7zwevHSqzqXDWPBgTm6NfOEDMeosSHEQ5QhbV1DUtqh537o7odDzbUj7b225WetXQMtnf3N7X2wprZea1uPzVq7xR9NsPZeZJEtHX3YU6QO0uJIyeBybGntUiFDSikYHNZO1C94lacd7L78kzq6L79r4XCAoI8vQe0aaunoh48bWrrqmjrMjW219c01dU3VFmtVbWNlbQPsSE29k9U5bxQ7V5kbcSzOgPOYG1vrmtqt/OR4VSVDxBcWVr5/CZ0PwIFXkXZ8w7f//PU3ddvYCG44HFFgSoCJDldZrICgpdrSVMkJcOXpLZt0HrBSXmUuqzTfur2mSobYsvb2b6Ar4n9bQH9sdmH53r17Hj6nRHB4S4NYmz4EqW9s7a6ztpsbgIJVwUHltiHQNnxiRXVdeVXdrdU7GmTcXr1T29Ba39wJdvGdhaT98YMPWR76wyDIQ/ULhzwNZP2Dzn4kBBBzCANmbWWtz8Rgq2RYhGaI2OEQTQQZa3fKq+sgLfi2QmksjW2Hy2vwvyp8/MmfGlq63aa6BId63sCyvM4BhPP6pg5Og9WHocE3ZKyuaWsGdoMJVZOylryi8qe+/W+nH3uysKTSgsTF2m5t7UHBoshzCQ4nGnjeUN/cASlWRIodpEGVjJu3VzUyUFUy5FlLWZVFyMlmBmOx1ja0YCYgg+YxSF+smHaKhobmTnNDa02dHmnQIMNVNFkFGVUuyZAkRCPVFZ9l5skKymzBCurwHWTF5Nc2gy1v6EDe0FPX3GFm2tCkzCL1B4QKGbdWtaIJ8gx3ZHhbFvFPbxK6wmNQv/gPOTxp0PkMDq8+yXUPcURUE+C9uaMPBQXwR3CtqWsW00X2m3VNg1fRRCPP8IkpphCuJK6nuaENuOAK4zqjJGbVkBvXuIXAZWvYhCocmRFrBcq6gWo2xDuMg1KTEWljY0sXcgWLtb2WBYgmBQf6F4Zt1Sbr/iXDLS52YqycmFZ0euALeATpC7zD2rvCrbIH01V92tYNnw6CgWbWPOwFdoj4SJlRZJnkrUBmFmu1mmE7e9dFiymoOXBbmziTYb97soZ9AkaGh8TIFdrmU97kdelTs8vGsUnt8/ipa+xWu3u8vgXNcBVNdEKGN6bwqXu3mgzl+O2TIVQEihJsZGzFCA5vyAhWzSA4fHTf5LZ2NFk1ChkEh6fd8XV71WocMggOBzKEZqy77meUVxuIDILD8ztqaxXVFuxmHDKMDoeHVasBNcPocMg0446LqtWIeQbBQZpBcPhh5Q7BYYzaxHbfZMPVar+KKkOTYTg4ZCuE3WmG4ckwFhye5xlEhrHgcN8DldZnVFmIDAPB4bQ+w+VqP4NnoEECh32VisI8P4N0CJaoYd0Kjyar7qpWIkNncDj7Hr7kvWpz2ZHakoqa4vKqw6WVRSVHCksqCovLCw7DyvKLYKWwPP4qGd6CYTfsjENKKqqL8EdppSBj3WU0ebucosmOw+HIQf0Rpvbm0iOMgKLSI3Aq83dhSW5BMSwn/7CG5cL4bpvmuAPOk5VbeCi74K2r11ysA2Vbbt66DQoBh1gGa/t6ZoLD33A4qgIeZocPSitqoAScgzLBgdLrCpdvyQqKSrPzigDH1WvXNaLJ9Rs3s3OLsCcTm+JyfDFoVXmlGdSqqhrB4bMYAaHGpGSqUFIBtVegkFvgGw6cDfKTxcgoEGSodLq4Zly/fhP0ZOcWgqQcJ9XBxsLiiuKyqtIjtShh+KpdY7Fi8iENLFeAMICGMtDAAoRCFfyEggsyCq9dv6ERTa4JMvKKxPdUNfk3z2eslB8uq4TylXNWqpRRcveY+FGm7SQNogoorWA0YJLlOdLgP2Hwhgz1DBTvYp+sXC0ytFmBtPAwxHJepE3Sc0dByYqT3iOwlpRXm7wOEzisohqxuaC43ClMFO+sMTKYyzXIYJpxlZOhrRlbYAVxs4izgktUwVMWvYYhx2/FakO4lc/wkop8Ef357zI5H7BZUlZzYUApIQ7jdUTgw4TnZGR7FE24ZmybDA1W2JUpLOFhqMIWhjZxcZxvfobGuUt0xI4ChAGyh75AXmGpqxlukg7gHIhjUEqooqAvGrZCxjXfaMY2cCmHuiBDl4hRPnHoC9tsF1VZIGOlFdXFZaxRBBS8SgRN+fYiItcP9WSgybh2w31tEigy3ONij0co6eE2FHSYyvAi5ifKaQg2Cj24Fgxh3gqrsP/BrJL912TYB5zxVmE1VIr3iip4k7B0+20CU3BxoE5GrnvNQD8ji/czdpAMl6bd6/MMNX/0ikxBT4Ysmri618o1g+2mRzJ0bKagJsNWm1y7od0D5WQUERlGgcPDDFTkGaQZBoLDLRk2zSAyjAaHotPlMprYeqBEhmHgcEuGvDbJyqM8wzBwKDJQrao1T69VK8GxI1WrrDahaGIkOJzuqKn/T7EUTQwHh6f3TaifYTQ4nO6brLvqgWaz+yYUTQwDR77jOlCNThewoAzUQHAIMjLdknFj5++1Ehw6I4N6oLsTjsKSPBeWW8CWIGA5gmM0oU5X8MOh5mz5ygPWmGLG57qziYwSO2fmFBzKzr/qttNFmqFPOJwJyOFznfk1Ky8jMyf9UPbBjKy09MzUg4cOpGUcSE2HJaceTE7RspS0jMTkVNjlK29pkIEn2PBBkA3xLIwzi2Tb9Sm/mCZvD8vJLxaaDwjSM3NAANyfwt0P7yYdSFNYMizloCeGkyQkpcDevHxF474J3k1ITsWZBXzph3IysvKycgrwraSF4PIgRebJ9MalY0leTkFGVu7BQ9m4sClph0zuDnM4JpUdk3EgRcmBh+5XBUKwlXrQgQxXmsHI4LvhEGcEASjOBmgyMnMzs/MRp5xwMSoNTijwp4jzcaHS+PR2ntvJKWmmPPXD8tI5PogIwovb58DZ8J1i4hLDIqLjEpLh7/jEA9pkXJaR4eqcCmTtuGRDXTK5ugB3I0Qi2W9ka1TtM9ym9GooqFxMEz+MEYTDUpwO8yEKcsOnwMERUbGW+sbjS6fwikjhjoy34jkZqa7J0MaFfW4K+1wWjDJzDqlKS5Di4kIYEHN5gMjYmtKbHC6f32hQkAF4Q8OjvvvscyKx+Pzzz9997z38cf/+fVUyrlx5y61meGzO0pLJpAWRKCefSYsjLjpUF7V0odAfM9wUABqcyQgJi7xw4QV4/cGDBxIQrsi47EsyPIhESIDSM5FgIc3iuBTaV/qXBJoYRV9AQgFVYbYNhVQVFHw2wwMKxwGeZ4SERV14/gVRjwAOBSKKO2r+JsPzxCUtPYtXRizVFQ176fGQPNdtPcfSqcTjPW3lQ5bgICs33VZBZHiYLgQfHPhtoeHR5y84kKE6BCs2MpJT4ZsAK5wGLjZ/sM5Nhqi2wA2UBnkMvIhcHu5kbRjWieGdPVt/z9YAtPcA2Q5QJmQGrDME97O+AAiAGGxC4FxBBPJXmwJJBjLQs9895yEZV65cDbxmeG1OfR3vsjdXhwcWgh2GIyUtPSYuqdZS/+WXX4o4ok3G++//AX1SvZOx2y1AcEB7I6JiZmbnVRNP+RDc/P3v/4f6NjY+SVJXsl0LB3wMT9fU1n3xxRfayiE1zufmF8Ii9+94tkFwBCzniHnmO2e1cw6x/ct//APKgf4phRVDwGGvVqLOPXfeFR/YImQD/TGQRGQYCA6RfOwLjVCtZiUyLrzwPVS8RIbh4JB65xIfIj+Vk4EumbzQJzMKHHY+MqAf586dl9qjQkKeZ2RESi1hMsPBIdePZ545+80334jbKGefPRcaEU1kGB0O2V37mOrauvljizXm+ojoWMozCA6H/BT9j/CoGLxSS4PgUOmsi5WC5AyCg4zgINuNcKSLZ0y4ZTBLy5AePPGijpBOYjtcWLrX5yHzUfqv4tZU6XkidXeYpJ2S+QMH/Eb5gbiEpNi4xP2xcdH7Y6Oi9kdERoVHRIaFh4eFhYeEhoWEhoaEhOzbJ0wa7J98hGKH0DC2c3h4BI6NjIqOjo6JjomNiYuPi0+KT0xOTEqRFlnZAErNIG62a3L3b7qVLRdKZIv7k+HWmLiE/TFxUdExcEpEhM2tocKtIaH7Qhx8aoreHxMZGRUWHsHe27dv7969pj17TH4ee/bs2buXsRQKgiIiI6P34xvHxifi6QTQ6QgNEaPBwaaoi4kNAmJt7mdTGlcXFxmXeo//fRqIIagBy+Aa4IL0OCjNJjEOl8NYQcGJg5jYBGgALhQuFy4am9gGHAAfPx7zIJIBExcXn5jgEJhk4XPXSILtF7GggEAPWcUPj4iMDg2HGIRCeU00NCVmL5IbRCXMHmQz8QkQGEaM7OLqmhiH9JAZe6aGSQIyg9h4/Kjw8EjkbhBScrbPBIaFpEh7SEpIckh+0xTQpAewTJBqhHSxtJgliQnJ+JKMg4hIpF/48rskOQgiYoTGCGYYNLHxgCZBJL+2ZeKqhXeGYwWoYcqaPzlFXiaw6g8fitIPcUHk/rsnSdzNkUkUTbxqQtkNeqA58CLKeLgTmT9KesR7VOBw8KbFJ2EjeysuAbshGwBzOBB1F9JDnAon3FVlAg0aNGjQoEGDBg0aNGjQoEGDBg0aNGjQoEGDBg0aNGjQoEGDBg0aNGjQoEGDBg0aNGjQoEGDhtfj/wHkBhLkNEKxQgAAAABJRU5ErkJggg==">
 <link rel="icon" href="data:image/png;base64,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">
 <style>
+/* ── SpearLine Vis · "Deep water" ───────────────────────────────────────────────
+ * Default look is deep water (no attribute needed, so the first paint is already dark).
+ * data-theme="light" forces light; data-theme="auto" follows the phone.
+ * The forecast tiers are water colours: murky olive (plankton-green water) → kelp → teal → blue → gin-clear.
+ */
 :root {
-  color-scheme: light;
-  --bg: #eef2f5; --surface: #ffffff; --surface-2: #f6f8fa;
-  --ink: #0b1b2b; --ink-2: #44546a; --muted: #6f7d8b; --line: #dde4ea; --line-2: #c6d0d9;
-  --brand: #1c5cab; --brand-ink: #ffffff; --accent: #2a78d6;
-  --chart-line: #2a78d6; --chart-band: rgba(42,120,214,.14); --chart-win: rgba(42,120,214,.06);
-  --good: #006300; --bad: #b3261e; --neutral: #6f7d8b;
-  --t0: #86b6ef; --t1: #5598e7; --t2: #2a78d6; --t3: #1c5cab; --t4: #0d366b;
-  --t0-ink: #0b1b2b; --t1-ink: #0b1b2b; --t2-ink: #ffffff; --t3-ink: #ffffff; --t4-ink: #ffffff;
-  --shadow: 0 1px 2px rgba(11,27,43,.06), 0 4px 14px rgba(11,27,43,.06);
-  --radius: 14px;
-  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --bg: #0a0f15; --surface: #131b24; --surface-2: #18222d;
-    --ink: #f1f5f9; --ink-2: #b8c4cf; --muted: #8b99a6; --line: #223040; --line-2: #2e3f52;
-    --brand: #5598e7; --brand-ink: #0a0f15; --accent: #5598e7;
-    --chart-line: #3987e5; --chart-band: rgba(57,135,229,.20); --chart-win: rgba(57,135,229,.08);
-    --good: #3cc13c; --bad: #ff7b72; --neutral: #8b99a6;
-    --t0: #184f95; --t1: #2a78d6; --t2: #5598e7; --t3: #86b6ef; --t4: #cde2fb;
-    --t0-ink: #ffffff; --t1-ink: #ffffff; --t2-ink: #0b1b2b; --t3-ink: #0b1b2b; --t4-ink: #0b1b2b;
-    --shadow: 0 1px 2px rgba(0,0,0,.4);
-  }
-}
-:root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0a0f15; --surface: #131b24; --surface-2: #18222d;
-  --ink: #f1f5f9; --ink-2: #b8c4cf; --muted: #8b99a6; --line: #223040; --line-2: #2e3f52;
-  --brand: #5598e7; --brand-ink: #0a0f15; --accent: #5598e7;
-  --chart-line: #3987e5; --chart-band: rgba(57,135,229,.20); --chart-win: rgba(57,135,229,.08);
-  --good: #3cc13c; --bad: #ff7b72; --neutral: #8b99a6;
-  --t0: #184f95; --t1: #2a78d6; --t2: #5598e7; --t3: #86b6ef; --t4: #cde2fb;
-  --t0-ink: #ffffff; --t1-ink: #ffffff; --t2-ink: #0b1b2b; --t3-ink: #0b1b2b; --t4-ink: #0b1b2b;
-  --shadow: 0 1px 2px rgba(0,0,0,.4);
+  --bg: #04121f; --bg-deep: #020810;
+  --surface: rgba(140, 200, 255, .055); --surface-2: rgba(140, 200, 255, .09); --solid: #0a1b2b;
+  --ink: #e6f0f7; --ink-2: #b4c6d6; --muted: #7f95a8; --line: rgba(160, 205, 245, .12); --line-2: rgba(160, 205, 245, .22);
+  --brand: #6fd8ff; --brand-ink: #03121e; --accent: #6fd8ff; --glow: rgba(111, 216, 255, .38);
+  --chart-line: #6fd8ff; --chart-band: rgba(111,216,255,.16); --chart-win: rgba(111,216,255,.07);
+  --good: #7fe3a8; --bad: #ff8a7a; --neutral: #7f95a8;
+  --t0: #55613a; --t1: #3f7356; --t2: #2b8a8f; --t3: #2f8fd6; --t4: #8fe6ff;
+  --t0-ink: #f1f4e6; --t1-ink: #ecf7f0; --t2-ink: #effcfc; --t3-ink: #f2f8ff; --t4-ink: #03243a;
+  --shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 10px 30px rgba(0, 5, 12, .45);
+  --radius: 18px; --radius-sm: 12px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --num: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --page: radial-gradient(120% 70% at 50% -10%, #0e3350 0%, rgba(14,51,80,0) 60%), linear-gradient(180deg, #06182a 0%, #04121f 40%, #020810 100%);
+  --map-water: #0b2338;
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #eaf2f7; --bg-deep: #dce9f2;
+  --surface: rgba(255,255,255,.78); --surface-2: rgba(255,255,255,.95); --solid: #ffffff;
+  --ink: #06243a; --ink-2: #345268; --muted: #5d778b; --line: rgba(6,36,58,.10); --line-2: rgba(6,36,58,.18);
+  --brand: #0a6fa8; --brand-ink: #ffffff; --accent: #0a6fa8; --glow: rgba(10,111,168,0);
+  --chart-line: #0a6fa8; --chart-band: rgba(10,111,168,.14); --chart-win: rgba(10,111,168,.06);
+  --good: #0f7a3d; --bad: #b3261e; --neutral: #5d778b;
+  --t0: #7d8650; --t1: #4f8a68; --t2: #2a9497; --t3: #1f7fc4; --t4: #0d4f86;
+  --t0-ink: #ffffff; --t1-ink: #ffffff; --t2-ink: #ffffff; --t3-ink: #ffffff; --t4-ink: #ffffff;
+  --shadow: 0 1px 2px rgba(6,36,58,.06), 0 8px 24px rgba(6,36,58,.08);
+  --page: radial-gradient(120% 70% at 50% -10%, #ffffff 0%, rgba(255,255,255,0) 60%), linear-gradient(180deg, #eef5fa 0%, #e2edf5 100%);
+  --map-water: #cfe3f0;
+}
+@media (prefers-color-scheme: light) {
+  :root[data-theme="auto"] {
+    color-scheme: light;
+    --bg: #eaf2f7; --bg-deep: #dce9f2;
+    --surface: rgba(255,255,255,.78); --surface-2: rgba(255,255,255,.95); --solid: #ffffff;
+    --ink: #06243a; --ink-2: #345268; --muted: #5d778b; --line: rgba(6,36,58,.10); --line-2: rgba(6,36,58,.18);
+    --brand: #0a6fa8; --brand-ink: #ffffff; --accent: #0a6fa8; --glow: rgba(10,111,168,0);
+    --chart-line: #0a6fa8; --chart-band: rgba(10,111,168,.14); --chart-win: rgba(10,111,168,.06);
+    --good: #0f7a3d; --bad: #b3261e; --neutral: #5d778b;
+    --t0: #7d8650; --t1: #4f8a68; --t2: #2a9497; --t3: #1f7fc4; --t4: #0d4f86;
+    --t0-ink: #ffffff; --t1-ink: #ffffff; --t2-ink: #ffffff; --t3-ink: #ffffff; --t4-ink: #ffffff;
+    --shadow: 0 1px 2px rgba(6,36,58,.06), 0 8px 24px rgba(6,36,58,.08);
+    --page: radial-gradient(120% 70% at 50% -10%, #ffffff 0%, rgba(255,255,255,0) 60%), linear-gradient(180deg, #eef5fa 0%, #e2edf5 100%);
+    --map-water: #cfe3f0;
+  }
 }
 
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 var(--font); -webkit-font-smoothing: antialiased; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; background: var(--bg-deep); }
+body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink); font: 15px/1.45 var(--font); -webkit-font-smoothing: antialiased; }
+/* page gradient on a fixed layer (iOS ignores background-attachment: fixed) */
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; background: var(--page); pointer-events: none; }
 body.noscroll { overflow: hidden; }
 button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .muted { color: var(--muted); }
 .small { font-size: 12.5px; }
 .wrap { max-width: 680px; margin: 0 auto; padding: 0 16px; }
+.num { font-family: var(--num); font-variant-numeric: tabular-nums; }
 
 /* ── Top bar ── */
-header.top { position: sticky; top: 0; z-index: 5; background: var(--bg); padding-top: env(safe-area-inset-top); }
-.bar { display: flex; align-items: center; gap: 10px; padding: 12px 0 6px; }
-.brand { display: flex; flex-direction: column; gap: 1px; flex: 1; min-width: 0; }
-.brand h1 { margin: 0; font-size: 20px; letter-spacing: -.01em; font-weight: 750; white-space: nowrap; line-height: 1.15; }
-.brand h1 span { color: var(--brand); }
-.brand p { margin: 0; color: var(--muted); font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.iconbtn { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); display: grid; place-items: center; cursor: pointer; font-size: 17px; flex: none; }
-.iconbtn:active { transform: scale(.96); }
+header.top { position: sticky; top: 0; z-index: 5; padding-top: env(safe-area-inset-top);
+  background: color-mix(in srgb, var(--bg) 78%, transparent); -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3);
+  border-bottom: 1px solid var(--line); }
+.bar { display: flex; align-items: center; gap: 8px; padding: 12px 0 6px; }
+.brand { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+.brand svg { flex: none; }
+.brand-text { min-width: 0; }
+.brand h1 { margin: 0; font-size: 20px; letter-spacing: -.015em; font-weight: 760; white-space: nowrap; line-height: 1.1; }
+.brand p { margin: 1px 0 0; color: var(--muted); font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.iconbtn { width: 38px; height: 38px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); display: grid; place-items: center; cursor: pointer; font-size: 17px; flex: none; color: var(--ink-2); }
+.iconbtn:active { transform: scale(.94); }
 #status { font-size: 12.5px; color: var(--ink-2); min-height: 20px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; background: var(--muted); flex: none; }
-.dot.ok { background: #0ca30c; } .dot.warn { background: #fab219; } .dot.err { background: #d03b3b; }
+.dot.ok { background: #49d68b; box-shadow: 0 0 8px rgba(73,214,139,.6); } .dot.warn { background: #f5b83d; } .dot.err { background: #ff6b5b; }
 .dot.live { background: var(--accent); animation: pulse 1s infinite alternate; }
 @keyframes pulse { to { opacity: .3; } }
-.link { background: none; border: 0; padding: 0; color: var(--accent); text-decoration: underline; cursor: pointer; font-size: inherit; }
+@media (prefers-reduced-motion: reduce) { .dot.live, .card.skeleton { animation: none; } }
+.link { background: none; border: 0; padding: 0; color: var(--accent); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; font-size: inherit; }
 .link.danger { color: var(--bad); }
+
+/* view switch: Forecast · Map · Dives */
+.viewseg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding: 3px; margin: 6px 0 2px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); }
+.viewseg button { border: 0; background: none; padding: 7px 0; border-radius: 9px; font-size: 13.5px; font-weight: 650; color: var(--ink-2); cursor: pointer; }
+.viewseg button.on { background: var(--surface-2); color: var(--ink); box-shadow: 0 1px 0 rgba(255,255,255,.06) inset, 0 2px 8px rgba(0,0,0,.18); }
 
 .tabs, .days { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 8px 0; -webkit-overflow-scrolling: touch; }
 .tabs::-webkit-scrollbar, .days::-webkit-scrollbar { display: none; }
-.tab { flex: none; border: 1px solid var(--line); background: var(--surface); padding: 7px 12px; border-radius: 999px; font-size: 13.5px; font-weight: 600; cursor: pointer; color: var(--ink-2); }
+.tab { flex: none; border: 1px solid var(--line); background: transparent; padding: 7px 13px; border-radius: 999px; font-size: 13.5px; font-weight: 600; cursor: pointer; color: var(--ink-2); }
 .tab.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .dayrow { display: flex; align-items: center; gap: 8px; }
 .days { flex: 1; min-width: 0; }
-.day { flex: none; border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 5px 9px; cursor: pointer; display: flex; flex-direction: column; align-items: center; line-height: 1.15; min-width: 50px; }
+.day { flex: none; border: 1px solid var(--line); background: var(--surface); border-radius: 12px; padding: 5px 9px; cursor: pointer; display: flex; flex-direction: column; align-items: center; line-height: 1.15; min-width: 50px; }
 .day b { font-size: 12.5px; }
 .day span { font-size: 11px; color: var(--muted); }
-.day.on { border-color: var(--brand); box-shadow: inset 0 0 0 1px var(--brand); }
+.day.on { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent), 0 0 14px var(--glow); }
 .sortbtn { flex: none; border: 0; background: none; color: var(--accent); font-size: 12.5px; font-weight: 600; cursor: pointer; padding: 4px 0; white-space: nowrap; }
 
-/* ── Cards ── */
+/* ── Spot cards: glass with a water-clarity edge ── */
 main { padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
-#list { display: flex; flex-direction: column; gap: 10px; padding-top: 4px; }
-.island { margin: 10px 2px 0; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 700; }
-.card { display: block; width: 100%; text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 12px 10px; box-shadow: var(--shadow); cursor: pointer; }
-.card:active { transform: scale(.995); }
+#list { display: flex; flex-direction: column; gap: 10px; padding-top: 10px; }
+.island { margin: 14px 2px 0; font-size: 13px; color: var(--muted); font-weight: 650; letter-spacing: .01em; }
+.card { position: relative; overflow: hidden; display: block; width: 100%; text-align: left; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 13px 14px 11px 18px; box-shadow: var(--shadow); cursor: pointer;
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--edge, var(--line-2)); box-shadow: 0 0 16px var(--edge, transparent); opacity: .95; }
+.card.e0 { --edge: var(--t0); } .card.e1 { --edge: var(--t1); } .card.e2 { --edge: var(--t2); } .card.e3 { --edge: var(--t3); } .card.e4 { --edge: var(--t4); }
+.card:active { transform: scale(.992); }
 .card.skeleton { height: 118px; background: linear-gradient(90deg, var(--surface) 25%, var(--surface-2) 50%, var(--surface) 75%); background-size: 200% 100%; animation: shimmer 1.2s infinite linear; }
 @keyframes shimmer { to { background-position: -200% 0; } }
 .card-top { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
 .card-id { min-width: 0; }
-.name { font-weight: 700; font-size: 16px; line-height: 1.25; }
-.star { color: #eda100; margin-right: 4px; }
+.name { font-weight: 700; font-size: 16.5px; line-height: 1.25; letter-spacing: -.005em; }
+.star { color: #ffc94a; margin-right: 4px; }
 .sub { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
 .hero-mini { text-align: right; flex: none; }
-.big { font-size: 26px; font-weight: 750; letter-spacing: -.02em; line-height: 1; }
-.big small { font-size: 13px; font-weight: 600; color: var(--muted); margin-left: 2px; }
+.big { font-family: var(--num); font-size: 30px; font-weight: 700; letter-spacing: -.02em; line-height: 1; font-variant-numeric: tabular-nums; text-shadow: 0 0 18px var(--glow); }
+.big small { font-family: var(--font); font-size: 13px; font-weight: 600; color: var(--muted); margin-left: 2px; text-shadow: none; }
 .lvl { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
-.strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 3px; margin-top: 10px; }
-.sc { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 0; }
+.strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; margin-top: 11px; }
+.sc { display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 0; }
 .sc i { font-style: normal; font-size: 10.5px; color: var(--muted); white-space: nowrap; overflow: hidden; }
 .sc.sel i { color: var(--ink); font-weight: 700; }
-.cell { display: block; width: 100%; text-align: center; border-radius: 6px; padding: 4px 0; font-weight: 700; font-size: 13px; font-variant-numeric: tabular-nums; }
-.sc.best .cell { box-shadow: 0 0 0 2px var(--surface), 0 0 0 3.5px var(--ink); }
+.cell { display: block; width: 100%; text-align: center; border-radius: 8px; padding: 4px 0; font-family: var(--num); font-weight: 700; font-size: 13px; font-variant-numeric: tabular-nums; }
+.sc.best .cell { box-shadow: 0 0 0 2px var(--bg), 0 0 0 3.5px var(--ink); }
 .cell.t-1 { background: var(--surface-2); color: var(--muted); }
 .cell.t0 { background: var(--t0); color: var(--t0-ink); } .cell.t1 { background: var(--t1); color: var(--t1-ink); }
 .cell.t2 { background: var(--t2); color: var(--t2-ink); } .cell.t3 { background: var(--t3); color: var(--t3-ink); }
-.cell.t4 { background: var(--t4); color: var(--t4-ink); }
+.cell.t4 { background: var(--t4); color: var(--t4-ink); box-shadow: 0 0 10px rgba(143,230,255,.35); }
 .empty { color: var(--muted); text-align: center; padding: 30px 10px; }
-.legend { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; font-size: 11.5px; color: var(--muted); margin: 14px 2px 0; }
+.legend { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; font-size: 11.5px; color: var(--muted); margin: 16px 2px 0; }
 .legend .cell { width: auto; padding: 2px 7px; font-size: 11px; }
 .legend .bestkey { display: inline-block; width: 14px; height: 10px; border-radius: 3px; box-shadow: 0 0 0 1.5px var(--ink); margin-right: 2px; }
 
+/* ── Map ── */
+#mapView { padding-top: 10px; }
+.map { position: relative; height: max(360px, calc(100vh - 290px)); border-radius: var(--radius); overflow: hidden; background: var(--map-water); border: 1px solid var(--line); touch-action: none; user-select: none; -webkit-user-select: none; box-shadow: var(--shadow); }
+.map .tiles, .map .pins { position: absolute; inset: 0; }
+.map .tiles img { position: absolute; width: 256px; height: 256px; max-width: none; user-select: none; -webkit-user-drag: none; pointer-events: none; }
+:root:not([data-theme="light"]) .map .tiles { filter: invert(.92) hue-rotate(185deg) saturate(.75) brightness(.9) contrast(.95); }
+@media (prefers-color-scheme: light) { :root[data-theme="auto"] .map .tiles { filter: none; } }
+.pin { position: absolute; transform: translate(-50%, -50%); border: 0; padding: 0; cursor: pointer; }
+.pin.spot { min-width: 30px; height: 22px; padding: 0 6px; border-radius: 11px; font-family: var(--num); font-weight: 700; font-size: 12px; font-variant-numeric: tabular-nums;
+  border: 1.5px solid rgba(255,255,255,.75); box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+.pin.spot.t-1 { background: #3a4b5c; color: #e6f0f7; }
+.pin.spot.t0 { background: var(--t0); color: var(--t0-ink); } .pin.spot.t1 { background: var(--t1); color: var(--t1-ink); } .pin.spot.t2 { background: var(--t2); color: var(--t2-ink); }
+.pin.spot.t3 { background: var(--t3); color: var(--t3-ink); } .pin.spot.t4 { background: var(--t4); color: var(--t4-ink); }
+.map.far .pin.spot { min-width: 0; width: 13px; height: 13px; padding: 0; font-size: 0; border-radius: 50%; border-width: 1.5px; }
+.pin.dive { width: 18px; height: 18px; border-radius: 50% 50% 50% 0; transform: translate(-50%, -100%) rotate(-45deg); background: #ffc94a; border: 2px solid #3a2500; box-shadow: 0 2px 6px rgba(0,0,0,.5); }
+.pin.dive.caught { background: #ff8a5c; }
+.map .ctrl { position: absolute; right: 10px; top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.map .ctrl button { width: 38px; height: 38px; border-radius: 12px; border: 1px solid var(--line-2); background: color-mix(in srgb, var(--solid) 85%, transparent); color: var(--ink); font-size: 20px; font-weight: 600; cursor: pointer; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.map .credit { position: absolute; left: 6px; bottom: 6px; right: 6px; font-size: 10.5px; color: var(--ink-2); pointer-events: none; text-shadow: 0 1px 2px var(--bg); }
+.map .cross { position: absolute; left: 50%; top: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); pointer-events: none; }
+.map .cross::before, .map .cross::after { content: ""; position: absolute; background: var(--accent); box-shadow: 0 0 6px rgba(0,0,0,.6); }
+.map .cross::before { left: 21px; top: 0; width: 2px; height: 44px; } .map .cross::after { top: 21px; left: 0; height: 2px; width: 44px; }
+.mapbar { display: flex; align-items: center; gap: 8px; margin: 10px 0 0; flex-wrap: wrap; }
+.mapbar p { margin: 0; flex: 1; min-width: 150px; font-size: 13px; color: var(--ink-2); }
+.maplegend { display: flex; gap: 12px; flex-wrap: wrap; font-size: 11.5px; color: var(--muted); margin: 10px 2px 0; align-items: center; }
+.maplegend i { display: inline-block; width: 11px; height: 11px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: #ffc94a; margin-right: 5px; vertical-align: -1px; }
+.maplegend i.caught { background: #ff8a5c; }
+
+/* ── Dives view ── */
+#divesView { padding-top: 10px; }
+.dhead-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+.dhead-row select { flex: 1; min-width: 160px; }
+select, input, textarea { font: inherit; font-size: 16px; font-weight: 400; padding: 10px; border-radius: 12px; border: 1px solid var(--line-2); background: var(--surface-2); color: var(--ink); }
+.tally { display: grid; grid-template-columns: 1fr auto auto auto; gap: 4px 12px; font-size: 13.5px; align-items: baseline; }
+.tally .h { color: var(--muted); font-size: 12px; }
+.tally .n { font-family: var(--num); font-variant-numeric: tabular-nums; text-align: right; }
+.divecard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 11px 12px; margin: 8px 0; cursor: pointer; display: block; width: 100%; text-align: left; color: var(--ink); }
+.divecard .when { color: var(--muted); font-size: 12.5px; }
+.divecard .what { font-size: 13.5px; margin-top: 3px; color: var(--ink-2); }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.tag { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+.tag.caught { border-color: rgba(255,138,92,.6); color: var(--ink); }
+.tag.protected { border-color: rgba(255,201,74,.6); }
+
 /* ── Detail overlay ── */
 #detail { position: fixed; inset: 0; z-index: 20; background: var(--bg); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+#detail::before { content: ""; position: fixed; inset: 0; z-index: -1; background: var(--page); pointer-events: none; }
 #detail[hidden], #sheet[hidden] { display: none; }
-.dhead { position: sticky; top: 0; z-index: 2; background: var(--bg); padding-top: env(safe-area-inset-top); border-bottom: 1px solid var(--line); }
+.dhead { position: sticky; top: 0; z-index: 2; padding-top: env(safe-area-inset-top); border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 80%, transparent); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
 .dhead .wrap { display: flex; align-items: center; gap: 10px; padding-top: 10px; padding-bottom: 10px; }
 .dhead h2 { flex: 1; margin: 0; font-size: 18px; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .meta { color: var(--muted); font-size: 13px; margin: 12px 0 4px; }
 .days.in-detail .day { min-width: 46px; padding: 5px 6px; gap: 3px; }
 .days.in-detail .cell.mini { font-size: 12px; padding: 2px 5px; }
-.hero { display: flex; align-items: center; gap: 14px; margin: 8px 0 2px; flex-wrap: wrap; }
-.hero-num { font-size: 56px; font-weight: 750; letter-spacing: -.03em; line-height: 1; }
-.hero-num span { font-size: 20px; font-weight: 600; color: var(--muted); margin-left: 4px; letter-spacing: 0; }
-.hero-rating { font-size: 20px; font-weight: 700; }
+.hero { display: flex; align-items: center; gap: 16px; margin: 10px 0 2px; flex-wrap: wrap; }
+.hero-num { font-family: var(--num); font-size: 68px; font-weight: 700; letter-spacing: -.04em; line-height: .95; font-variant-numeric: tabular-nums; text-shadow: 0 0 34px var(--glow); }
+.hero-num span { font-family: var(--font); font-size: 20px; font-weight: 600; color: var(--muted); margin-left: 4px; letter-spacing: 0; text-shadow: none; }
+.hero-rating { font-size: 21px; font-weight: 700; }
 .hero-conf { font-size: 13px; color: var(--ink-2); display: flex; align-items: center; gap: 6px; }
 .hero-when { font-size: 12.5px; color: var(--muted); }
 .hero-sub { color: var(--ink-2); font-size: 13.5px; margin-bottom: 6px; }
 .conf { width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--accent); display: inline-block; }
 .conf.high { background: var(--accent); }
 .conf.medium { background: linear-gradient(90deg, var(--accent) 50%, transparent 50%); }
-.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; margin: 12px 0; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 13px; margin: 12px 0; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 .panel h2 { margin: 0 0 8px; font-size: 15px; }
 .panel h2 small { color: var(--muted); font-weight: 500; font-size: 12px; margin-left: 4px; }
 .chart { position: relative; }
 .chart svg { display: block; width: 100%; height: auto; touch-action: pan-y; }
 .chart .gl { stroke: var(--line); stroke-width: 1; }
 .chart .base { stroke: var(--line-2); stroke-width: 1; }
-.chart .ax { fill: var(--muted); font-size: 10px; font-family: var(--font); font-variant-numeric: tabular-nums; }
+.chart .ax { fill: var(--muted); font-size: 10px; font-family: var(--num); font-variant-numeric: tabular-nums; }
 .chart .winlbl { font-size: 9px; }
 .chart .win { fill: var(--chart-win); }
 .chart .band { fill: var(--chart-band); }
-.chart .ln { fill: none; stroke: var(--chart-line); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.chart .ln { fill: none; stroke: var(--chart-line); stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; filter: drop-shadow(0 0 4px var(--glow)); }
 .chart .xh { stroke: var(--ink-2); stroke-width: 1; }
-.chart .xd { fill: var(--chart-line); stroke: var(--surface); stroke-width: 2; }
+.chart .xd { fill: var(--chart-line); stroke: var(--bg); stroke-width: 2; }
 .chart .hit { fill: transparent; cursor: crosshair; }
 .tip { position: absolute; top: -6px; transform: translate(-50%, -100%); background: var(--ink); color: var(--bg); font-size: 12px; padding: 5px 8px; border-radius: 8px; white-space: nowrap; pointer-events: none; }
-.tip b { font-size: 13px; }
+.tip b { font-family: var(--num); font-size: 13px; }
 .zones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
-.zones > div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; gap: 2px; }
-.zones .zhead { border-color: var(--brand); }
+.zones > div { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 10px; display: flex; flex-direction: column; gap: 2px; }
+.zones .zhead { border-color: var(--accent); box-shadow: 0 0 14px var(--glow) inset; }
 .zl { font-size: 12px; font-weight: 700; }
-.zv { font-size: 22px; font-weight: 750; }
-.zv small { font-size: 12px; color: var(--muted); margin-left: 2px; }
+.zv { font-family: var(--num); font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.zv small { font-family: var(--font); font-size: 12px; color: var(--muted); margin-left: 2px; }
 .zs { font-size: 11px; color: var(--muted); }
 .chips { display: grid; grid-template-columns: 1fr; gap: 8px; }
 @media (min-width: 560px) { .chips { grid-template-columns: 1fr 1fr; } }
-.chip { display: flex; gap: 10px; border: 1px solid var(--line); border-radius: 12px; padding: 9px 10px; background: var(--surface-2); }
+.chip { display: flex; gap: 10px; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 9px 10px; background: var(--surface-2); }
 .chip-ic { font-size: 18px; line-height: 1.2; }
 .chip-body { min-width: 0; }
 .chip-t { font-weight: 700; font-size: 13.5px; }
@@ -182,22 +259,31 @@ table.cond tbody tr:last-child th, table.cond tbody tr:last-child td { border-bo
 .tide-body { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 13.5px; }
 .actions { display: flex; gap: 8px; margin: 14px 0; }
 .actions.flexwrap { flex-wrap: wrap; align-items: center; }
-.sheet-card label.btn { display: inline-flex; flex-direction: row; margin: 0; font-size: 14px; font-weight: 650; }
-.btn { border: 1px solid var(--line-2); background: var(--surface); border-radius: 10px; padding: 10px 14px; font-weight: 650; cursor: pointer; font-size: 14px; }
-.btn.primary { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+.btn { border: 1px solid var(--line-2); background: var(--surface-2); color: var(--ink); border-radius: 12px; padding: 10px 15px; font-weight: 650; cursor: pointer; font-size: 14px; }
+.btn.primary { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); box-shadow: 0 0 18px var(--glow); }
+.btn.small { padding: 6px 10px; font-size: 13px; }
 .filebtn { display: inline-flex; align-items: center; }
 .prov { color: var(--muted); font-size: 11.5px; margin: 8px 0 40px; }
 
 /* ── Bottom sheet ── */
-#sheet { position: fixed; inset: 0; z-index: 30; background: rgba(5,12,20,.45); display: flex; align-items: flex-end; justify-content: center; }
-.sheet-card { background: var(--surface); width: 100%; max-width: 680px; max-height: 88vh; overflow-y: auto; border-radius: 18px 18px 0 0; padding: 16px 16px calc(20px + env(safe-area-inset-bottom)); position: relative; }
+#sheet { position: fixed; inset: 0; z-index: 30; background: rgba(1,6,12,.6); display: flex; align-items: flex-end; justify-content: center; }
+.sheet-card { background: var(--solid); color: var(--ink); width: 100%; max-width: 680px; max-height: 90vh; overflow-y: auto; border-radius: 22px 22px 0 0; padding: 16px 16px calc(20px + env(safe-area-inset-bottom)); position: relative; border: 1px solid var(--line); border-bottom: 0; }
 .sheet-card h2 { margin: 0 34px 8px 0; font-size: 18px; }
-.sheet-card h3 { font-size: 14px; margin: 16px 0 6px; }
+.sheet-card h3 { font-size: 14px; margin: 18px 0 6px; }
 .sheet-close { position: absolute; top: 10px; right: 10px; }
 .sheet-card label { display: flex; flex-direction: column; gap: 4px; font-size: 13.5px; font-weight: 600; margin: 10px 0; }
-.sheet-card input, .sheet-card select { font: inherit; font-size: 16px; font-weight: 400; padding: 10px; border-radius: 10px; border: 1px solid var(--line-2); background: var(--surface-2); color: var(--ink); }
+.sheet-card input, .sheet-card select, .sheet-card textarea { width: 100%; }
+.sheet-card .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.sheet-card .row2 label { margin: 6px 0; }
 .sheet-card label.check { flex-direction: row; align-items: center; gap: 10px; }
 .sheet-card label.check input { width: 22px; height: 22px; margin: 0; padding: 0; accent-color: var(--brand); }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button { border: 1px solid var(--line-2); background: transparent; color: var(--ink-2); border-radius: 999px; padding: 6px 11px; font-size: 13px; cursor: pointer; }
+.seg button.on { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+.fishrow { display: grid; grid-template-columns: 1fr 64px 76px 34px; gap: 6px; align-items: center; margin: 6px 0; }
+.fishrow input, .fishrow select { padding: 8px; }
+.warnline { font-size: 12.5px; color: #ffc94a; margin: 2px 0 0; }
+:root[data-theme="light"] .warnline { color: #8a5a00; }
 .credits { padding-left: 18px; font-size: 13px; color: var(--ink-2); } .credits li { margin: 6px 0; }
 .prov a, .credits a, .sheet-card p a { color: var(--accent); }
 /* iOS: no grey tap flash or long-press callout on controls (inputs keep normal text selection) */
@@ -211,7 +297,7 @@ button, .card, .tab, .day, .btn, .iconbtn, label.btn { -webkit-touch-callout: no
 .error { color: var(--bad); font-weight: 600; }
 footer.foot { color: var(--muted); font-size: 12px; text-align: center; padding: 18px 16px 36px; }
 footer.foot button { font-size: 12px; }
-@media (forced-colors: active) { .cell { border: 1px solid CanvasText; } }
+@media (forced-colors: active) { .cell, .pin.spot { border: 1px solid CanvasText; } }
 
 </style>
 </head>
@@ -219,19 +305,22 @@ footer.foot button { font-size: 12px; }
 <header class="top">
   <div class="wrap">
     <div class="bar">
-      <div class="brand"><h1>SpearLine <span>Vis</span></h1><p>7-day underwater visibility</p></div>
+      <div class="brand"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#000"/><path d="M0 12 C8 9 16 15 30 11 V30 H0Z" fill="#212428"/><path d="M0 19 C9 16 18 22 30 18 V30 H0Z" fill="#141619"/><path d="M8 22 L19.5 10.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><path d="M23 7 L21.6 13.4 L16.6 8.4Z" fill="#fff"/></svg><div class="brand-text"><h1>SpearLine Vis</h1><p>Dive visibility forecast</p></div></div>
       <button class="iconbtn" data-act="reload" aria-label="Refresh data" title="Refresh">↻</button>
       <button class="iconbtn" data-act="about" aria-label="How it works" title="How it works">ⓘ</button>
       <button class="iconbtn" data-act="settings" aria-label="Settings and dive log" title="Settings &amp; dive log">⚙︎</button>
     </div>
     <div id="status" role="status" aria-live="polite"></div>
+    <div class="viewseg" role="tablist" aria-label="View"><button role="tab" data-view="list" class="on" aria-selected="true">Forecast</button><button role="tab" data-view="map" aria-selected="false">Map</button><button role="tab" data-view="dives" aria-selected="false">Dives</button></div>
     <nav id="tabs" class="tabs" role="tablist" aria-label="Areas"></nav>
     <div class="dayrow"><div id="days" class="days" aria-label="Forecast day"></div><button id="sortBtn" class="sortbtn" data-act="sort">Sort</button></div>
   </div>
 </header>
 <main class="wrap">
+  <section id="mapView" hidden></section>
+  <section id="divesView" hidden></section>
   <div id="list"></div>
-  <div class="legend" aria-hidden="true">
+  <div class="legend" id="legend" aria-hidden="true">
     Morning vis (ft):
     <span class="cell t0">0–5</span><span class="cell t1">5–10</span><span class="cell t2">10–15</span><span class="cell t3">15–25</span><span class="cell t4">25+</span>
     <span><span class="bestkey"></span>best day</span>
@@ -703,12 +792,27 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
     try { return await fetch(url, Object.assign({ signal: ctl.signal }, init || {})); }
     finally { clearTimeout(t); }
   }
-  async function fetchJSON(url, ms) {
-    const r = await fetchWithTimeout(url, ms);
-    if (!r.ok) throw new Error(`HTTP ${r.status} from ${new URL(url).host}`);
-    const j = await r.json();
-    if (j && j.error) throw new Error(j.reason || 'API error');
-    return j;
+  // Busy or briefly unreachable services (HTTP 429/5xx, network errors, timeouts) are retried twice,
+  // after 1.5 s and 4 s. Other errors fail at once.
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  async function fetchJSON(url, ms, tries = 3) {
+    const host = new URL(url).host;
+    let lastErr = null;
+    for (let a = 0; a < tries; a++) {
+      if (a) await sleep(a === 1 ? 1500 : 4000);
+      try {
+        const r = await fetchWithTimeout(url, ms);
+        if (r.status === 429 || r.status >= 500) { lastErr = new Error(`${host} is busy (HTTP ${r.status})`); continue; }
+        if (!r.ok) throw Object.assign(new Error(`HTTP ${r.status} from ${host}`), { final: true });
+        const j = await r.json();
+        if (j && j.error) throw Object.assign(new Error(j.reason || 'API error'), { final: true });
+        return j;
+      } catch (e) {
+        if (e.final) throw e;
+        lastErr = e && e.name === 'AbortError' ? new Error(`${host} did not answer in time`) : e;
+      }
+    }
+    throw lastErr;
   }
   async function pool(items, n, fn) {
     const out = new Array(items.length); let next = 0;
@@ -981,6 +1085,8 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
     logs: D.lsGet('logs', []),
     overrides: D.lsGet('overrides', {}),
     alerts: Object.assign({ on: false, ft: 20 }, D.lsGet('alerts', {})),   // iOS only: clear-water notifications
+    view: ['list', 'map', 'dives'].includes(D.lsGet('view', 'list')) ? D.lsGet('view', 'list') : 'list',
+    diveFilter: '', diveArea: '',
     loading: false, progress: 0, error: null, offline: false,
     openSpot: null,
   };
@@ -1001,6 +1107,7 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
     const wIndex = new Map(weather.times.map((t, i) => [t, i]));
     const nowKey = D.nowHourKey();
     const results = {};
+    const visLogs = S.logs.filter(l => typeof l.obsFt === 'number');   // dives logged without visibility don't calibrate
     for (const spot of S.spots) {
       const pi = marine.map[spot.id];
       if (pi == null) { results[spot.id] = { missing: true }; continue; }
@@ -1025,7 +1132,7 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
       const chlByDay = {};
       for (let k = -3; k < 8; k++) { const d = D.addDays(today, k); chlByDay[d] = now ? M.chlForDay(now, Math.max(0, k)) : null; }
       const run = M.runSpot({ spot, expTable: spot._exp, times, waves, wind: { kt, dir }, rainMm: rain, rainIdx, chlByDay, calib: 1 });
-      const cal = M.calibration(S.logs, spot.id, spot.group, Date.now());
+      const cal = M.calibration(visLogs, spot.id, spot.group, Date.now());
       const daily = S.days.map((d, k) => summarizeDay(run, times, d, k, now, cal, waves, { kt, dir, gust, rain }));
       results[spot.id] = { run, times, waves, wind: { kt, dir, gust, rain }, chlNow: now, chlSeries: series, cal, daily, grid: marine.points[pi].grid, nowIdx: times.indexOf(nowKey) };
     }
@@ -1120,8 +1227,262 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
     }
   }
 
+  // ── Species (dive journal) ────────────────────────────────────────────────────
+  const SPECIES = ['Calico bass', 'Sand bass', 'Sheephead', 'Yellowtail', 'White seabass', 'California halibut', 'Lingcod',
+    'Vermilion rockfish', 'Other rockfish', 'Cabezon', 'Scorpionfish (sculpin)', 'Opaleye', 'Halfmoon', 'Barracuda', 'Bonito',
+    'Bluefin tuna', 'Yellowfin tuna', 'Dorado', 'Spiny lobster', 'Garibaldi', 'Giant sea bass', 'Bat ray', 'Leopard shark',
+    'Horn shark', 'Mola mola', 'Octopus', 'Sea lion'];
+  // No-take species in California; the dive form warns if one is logged as caught.
+  const PROTECTED = new Set(['Garibaldi', 'Giant sea bass']);
+  const isDive = l => l && (l.lat != null || l.caught || l.seen);
+  const kmBetween = (a, b, c, d) => { const r = Math.PI / 180, x = (d - b) * r * Math.cos((a + c) / 2 * r), y = (c - a) * r; return 6371 * Math.hypot(x, y); };
+  function nearestSpot(lat, lon) {
+    let best = null, bd = Infinity;
+    for (const s of S.spots) { const d = kmBetween(lat, lon, s.lat, s.lon); if (d < bd) { bd = d; best = s; } }
+    return best ? { spot: best, km: bd } : null;
+  }
+  const logPos = l => (l.lat != null ? [l.lat, l.lon] : (S.byId[l.spotId] ? [S.byId[l.spotId].lat, S.byId[l.spotId].lon] : null));
+  function logGroup(l) {
+    if (l.spotId && S.byId[l.spotId]) return S.byId[l.spotId].group;
+    const p = logPos(l); if (!p) return null;
+    const n = nearestSpot(p[0], p[1]); return n && n.km <= 15 ? n.spot.group : null;
+  }
+  const inArea = l => !S.diveArea || logGroup(l) === S.diveArea;
+  const speciesOf = l => [...new Set([...(l.caught || []).map(c => c.sp), ...(l.seen || [])])];
+  const matchesFilter = l => !S.diveFilter || speciesOf(l).includes(S.diveFilter);
+  function whenLabel(l) {
+    if (l.when) { const h = +l.when.slice(11, 13), m = l.when.slice(14, 16); return `${dayLong(l.when.slice(0, 10))}, ${h % 12 === 0 ? 12 : h % 12}:${m} ${h < 12 ? 'AM' : 'PM'}`; }
+    return new Date(l.t).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+  }
+  function placeName(l) {
+    if (l.spotId && S.byId[l.spotId]) return S.byId[l.spotId].name;
+    const p = logPos(l); if (!p) return 'Unknown place';
+    const n = nearestSpot(p[0], p[1]);
+    return n ? `${n.km < 1 ? 'Near' : `${n.km.toFixed(1)} km from`} ${n.spot.name}` : `${p[0].toFixed(4)}, ${p[1].toFixed(4)}`;
+  }
+
+  // ── View switch: Forecast · Map · Dives ───────────────────────────────────────
+  function setView(v) {
+    S.view = v; D.lsSet('view', v);
+    if (v !== 'map') MAP.placing = false;
+    document.querySelectorAll('.viewseg button').forEach(b => { const on = b.dataset.view === v; b.classList.toggle('on', on); b.setAttribute('aria-selected', String(on)); });
+    renderDays(); renderView();
+    window.scrollTo({ top: 0 });
+  }
+  function renderView() {
+    const v = S.view;
+    $('#list').hidden = v !== 'list'; $('#legend').hidden = v !== 'list';
+    $('#mapView').hidden = v !== 'map'; $('#divesView').hidden = v !== 'dives';
+    $('#sortBtn').hidden = v !== 'list';
+    $('#days').closest('.dayrow').hidden = v === 'dives';
+    $('#tabs').hidden = v === 'dives';
+    if (v === 'list') renderList(); else if (v === 'map') renderMap(); else renderDives();
+  }
+
+  // ── Map: NOAA nautical chart tiles, no third-party code ───────────────────────
+  // Web Mercator tiles from NOAA Office of Coast Survey's chart service (public domain, zoom 0–16).
+  const TILE = (z, x, y) => `https://gis.charttools.noaa.gov/arcgis/rest/services/MarineChart_Services/NOAACharts/MapServer/tile/${z}/${y}/${x}`;
+  const ZMIN = 7, ZMAX = 16;
+  const MAP = Object.assign({ lat: 33.85, lon: -119.25, z: 8 }, D.lsGet('map', {}), { w: 0, h: 0, tiles: new Map(), placing: false, bound: false, raf: 0 });
+  const lon2x = (lon, z) => (lon + 180) / 360 * 256 * 2 ** z;
+  const lat2y = (lat, z) => { const s = Math.sin(lat * Math.PI / 180); return (0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI)) * 256 * 2 ** z; };
+  const x2lon = (x, z) => x / (256 * 2 ** z) * 360 - 180;
+  const y2lat = (y, z) => { const n = Math.PI - 2 * Math.PI * y / (256 * 2 ** z); return 180 / Math.PI * Math.atan(Math.sinh(n)); };
+  const clampLat = v => Math.max(31.5, Math.min(35.5, v)), clampLon = v => Math.max(-122.5, Math.min(-116.5, v));
+  function setCenterPx(x, y) { MAP.lon = clampLon(x2lon(x, MAP.z)); MAP.lat = clampLat(y2lat(y, MAP.z)); }
+  function saveMapPos() { D.lsSet('map', { lat: +MAP.lat.toFixed(5), lon: +MAP.lon.toFixed(5), z: MAP.z }); }
+  function scheduleDraw() { if (MAP.raf) return; MAP.raf = requestAnimationFrame(() => { MAP.raf = 0; drawMap(); }); }
+
+  function renderMap() {
+    const host = $('#mapView');
+    if (!host.firstChild) {
+      host.innerHTML = `<div class="map" id="map" role="application" aria-label="Chart of dive spots and your dives">
+          <div class="tiles"></div><div class="pins"></div><div class="cross" hidden></div>
+          <div class="ctrl"><button data-map="in" aria-label="Zoom in">+</button><button data-map="out" aria-label="Zoom out">−</button></div>
+          <div class="credit">Chart: NOAA Office of Coast Survey · for planning, not for navigation</div>
+        </div>
+        <div class="mapbar" id="mapbar"></div>
+        <div class="maplegend"><span>Spot labels: 7–10 AM visibility (ft)</span><span><i></i>Your dive</span><span><i class="caught"></i>Dive with a catch</span></div>`;
+      bindMap($('#map'));
+      renderMapBar(); buildPins();
+      if (!D.lsGet('map', null)) { fitSpots(S.spots); return; }   // first visit: frame all spots before any tile loads
+    }
+    renderMapBar();
+    buildPins();
+    drawMap();
+  }
+  function renderMapBar() {
+    const bar = $('#mapbar'); if (!bar) return;
+    const cross = $('#map .cross'); if (cross) cross.hidden = !MAP.placing;
+    if (MAP.placing) {
+      bar.innerHTML = `<p>Move the chart until the crosshair sits on your dive site.</p><button class="btn" data-map="cancel">Cancel</button><button class="btn primary" data-map="here">Use this place</button>`;
+    } else {
+      const day = S.days[S.selDay];
+      bar.innerHTML = `<p>${day ? `Forecast for ${esc(dayLong(day))}. ` : ''}${S.diveFilter ? `Showing dives with ${esc(S.diveFilter)}. <button class="link" data-act="clearFilter">Show all</button>` : 'Tap a spot for its forecast.'}</p><button class="btn primary" data-map="place">Log a dive here</button>`;
+    }
+  }
+  function buildPins() {
+    const layer = $('#map .pins'); if (!layer) return;
+    let html = '';
+    for (const s of S.spots) {
+      const r = S.results[s.id], d = r && r.daily ? r.daily[S.selDay] : null;
+      const v = d ? d.am : null, t = v == null ? -1 : M.tier(v);
+      html += `<button class="pin spot t${t}" data-spot="${esc(s.id)}" data-lat="${s.lat}" data-lon="${s.lon}" aria-label="${esc(s.name)}: ${fmtFt(v)} feet">${fmtFt(v)}</button>`;
+    }
+    for (const l of S.logs) {
+      if (!matchesFilter(l)) continue;
+      const p = logPos(l); if (!p) continue;
+      const caught = (l.caught || []).length > 0;
+      html += `<button class="pin dive${caught ? ' caught' : ''}" data-dive="${esc(l.id)}" data-lat="${p[0]}" data-lon="${p[1]}" aria-label="Your dive, ${esc(whenLabel(l))}"></button>`;
+    }
+    layer.innerHTML = html;
+  }
+  function drawMap() {
+    const box = $('#map'); if (!box || box.offsetParent === null) return;
+    MAP.w = box.clientWidth; MAP.h = box.clientHeight;
+    const z = MAP.z, n = 2 ** z;
+    const ox = lon2x(MAP.lon, z) - MAP.w / 2, oy = lat2y(MAP.lat, z) - MAP.h / 2;
+    const layer = box.querySelector('.tiles'), want = new Set();
+    for (let ty = Math.floor(oy / 256); ty <= Math.floor((oy + MAP.h) / 256); ty++) {
+      if (ty < 0 || ty >= n) continue;
+      for (let tx = Math.floor(ox / 256); tx <= Math.floor((ox + MAP.w) / 256); tx++) {
+        const key = `${z}/${tx}/${ty}`; want.add(key);
+        let img = MAP.tiles.get(key);
+        if (!img) {
+          img = new Image(); img.alt = ''; img.decoding = 'async'; img.draggable = false;
+          img.onerror = () => { img.style.visibility = 'hidden'; };
+          img.src = TILE(z, ((tx % n) + n) % n, ty);
+          MAP.tiles.set(key, img); layer.appendChild(img);
+        }
+        img.style.left = Math.round(tx * 256 - ox) + 'px'; img.style.top = Math.round(ty * 256 - oy) + 'px';
+      }
+    }
+    for (const [k, img] of MAP.tiles) if (!want.has(k)) { img.remove(); MAP.tiles.delete(k); }
+    box.querySelectorAll('.pins .pin').forEach(el => {
+      const x = lon2x(+el.dataset.lon, z) - ox, y = lat2y(+el.dataset.lat, z) - oy;
+      const vis = x > -40 && y > -40 && x < MAP.w + 40 && y < MAP.h + 40;
+      el.style.display = vis ? '' : 'none';
+      if (vis) { el.style.left = x + 'px'; el.style.top = y + 'px'; }
+    });
+    // Spot labels overlap at low zoom: only show numbers from zoom 10, dots below.
+    box.classList.toggle('far', z < 10);
+  }
+  function zoomAt(px, py, dz) {
+    const z2 = Math.max(ZMIN, Math.min(ZMAX, MAP.z + dz)); if (z2 === MAP.z) return;
+    const wx = lon2x(MAP.lon, MAP.z) - MAP.w / 2 + px, wy = lat2y(MAP.lat, MAP.z) - MAP.h / 2 + py;
+    const lon = x2lon(wx, MAP.z), lat = y2lat(wy, MAP.z);
+    MAP.z = z2;
+    setCenterPx(lon2x(lon, z2) - px + MAP.w / 2, lat2y(lat, z2) - py + MAP.h / 2);
+    drawMap(); saveMapPos();
+  }
+  function fitSpots(list) {
+    const box = $('#map'); if (!box || !list.length) return;
+    const w = box.clientWidth - 70, h = box.clientHeight - 70;
+    let la0 = 90, la1 = -90, lo0 = 180, lo1 = -180;
+    for (const s of list) { la0 = Math.min(la0, s.lat); la1 = Math.max(la1, s.lat); lo0 = Math.min(lo0, s.lon); lo1 = Math.max(lo1, s.lon); }
+    let z = ZMAX;
+    while (z > ZMIN && (lon2x(lo1, z) - lon2x(lo0, z) > w || lat2y(la0, z) - lat2y(la1, z) > h)) z--;
+    MAP.z = Math.min(z, 13);
+    setCenterPx((lon2x(lo0, MAP.z) + lon2x(lo1, MAP.z)) / 2, (lat2y(la0, MAP.z) + lat2y(la1, MAP.z)) / 2);
+    drawMap(); saveMapPos();
+  }
+  function bindMap(box) {
+    const pts = new Map();
+    let drag = null, pinch = null, moved = false, wheelAt = 0;
+    const rel = e => { const r = box.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+    const layers = () => box.querySelectorAll('.tiles, .pins');
+    box.addEventListener('pointerdown', e => {
+      if (e.button > 0 || e.target.closest('.ctrl')) return;
+      pts.set(e.pointerId, rel(e));
+      if (pts.size === 1) { const [x, y] = rel(e); drag = { x, y, cx: lon2x(MAP.lon, MAP.z), cy: lat2y(MAP.lat, MAP.z) }; moved = false; }
+      if (pts.size === 2) {
+        const [a, b] = [...pts.values()];
+        pinch = { d: Math.hypot(a[0] - b[0], a[1] - b[1]) || 1, mx: (a[0] + b[0]) / 2, my: (a[1] + b[1]) / 2, s: 1 };
+        drag = null;
+      }
+    });
+    window.addEventListener('pointermove', e => {
+      if (!pts.has(e.pointerId)) return;
+      pts.set(e.pointerId, rel(e));
+      if (pinch && pts.size >= 2) {
+        const [a, b] = [...pts.values()];
+        pinch.s = Math.hypot(a[0] - b[0], a[1] - b[1]) / pinch.d; moved = true;
+        layers().forEach(l => { l.style.transformOrigin = `${pinch.mx}px ${pinch.my}px`; l.style.transform = `scale(${pinch.s})`; });
+      } else if (drag) {
+        const [x, y] = rel(e), dx = x - drag.x, dy = y - drag.y;
+        if (!moved && Math.hypot(dx, dy) < 6) return;
+        moved = true; setCenterPx(drag.cx - dx, drag.cy - dy); scheduleDraw();
+      }
+    });
+    const end = e => {
+      if (!pts.has(e.pointerId)) return;
+      pts.delete(e.pointerId);
+      if (pinch && pts.size < 2) {
+        layers().forEach(l => { l.style.transform = ''; });
+        const dz = Math.round(Math.log2(pinch.s)); const { mx, my } = pinch; pinch = null;
+        if (dz) zoomAt(mx, my, dz);
+        if (pts.size === 1) { const [p] = [...pts.values()]; drag = { x: p[0], y: p[1], cx: lon2x(MAP.lon, MAP.z), cy: lat2y(MAP.lat, MAP.z) }; }
+      }
+      if (!pts.size) { drag = null; if (moved) saveMapPos(); }
+    };
+    window.addEventListener('pointerup', end); window.addEventListener('pointercancel', end);
+    box.addEventListener('click', e => { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
+    box.addEventListener('dblclick', e => { const [x, y] = rel(e); zoomAt(x, y, 1); });
+    box.addEventListener('wheel', e => {
+      e.preventDefault();
+      const now = Date.now(); if (now - wheelAt < 220) return; wheelAt = now;
+      const [x, y] = rel(e); zoomAt(x, y, e.deltaY < 0 ? 1 : -1);
+    }, { passive: false });
+    window.addEventListener('resize', () => { if (S.view === 'map') drawMap(); });
+  }
+  function mapAction(a) {
+    if (a === 'in' || a === 'out') { nat('tap'); zoomAt(MAP.w / 2, MAP.h / 2, a === 'in' ? 1 : -1); }
+    else if (a === 'place') { MAP.placing = true; renderMapBar(); }
+    else if (a === 'cancel') { MAP.placing = false; renderMapBar(); }
+    else if (a === 'here') { MAP.placing = false; renderMapBar(); diveSheet({ lat: +MAP.lat.toFixed(5), lon: +MAP.lon.toFixed(5) }); }
+  }
+
+  // ── Dives view: your journal, filtered by area tab and species ─────────────────
+  function renderDives() {
+    const host = $('#divesView');
+    const area = S.logs.filter(inArea);
+    const species = [...new Set(S.logs.flatMap(speciesOf))].sort();
+    if (S.diveFilter && !species.includes(S.diveFilter)) S.diveFilter = '';
+    const shown = area.filter(matchesFilter).sort((a, b) => b.t - a.t);
+    const tally = {};
+    for (const l of area) {
+      for (const c of l.caught || []) { const t = tally[c.sp] || (tally[c.sp] = { seen: 0, caught: 0, last: 0 }); t.caught += c.n || 1; t.last = Math.max(t.last, l.t); }
+      for (const sp of l.seen || []) { const t = tally[sp] || (tally[sp] = { seen: 0, caught: 0, last: 0 }); t.seen += 1; t.last = Math.max(t.last, l.t); }
+    }
+    const rows = Object.entries(tally).sort((a, b) => b[1].last - a[1].last);
+    const areaName = S.diveArea || 'all areas';
+    host.innerHTML = `
+      <div class="dhead-row">
+        <select id="diveArea" aria-label="Area"><option value="">All areas</option>${GROUPS.map(g => `<option${g === S.diveArea ? ' selected' : ''}>${esc(g)}</option>`).join('')}</select>
+        <select id="diveSpecies" aria-label="Show dives with species"><option value="">All species</option>${species.map(sp => `<option${sp === S.diveFilter ? ' selected' : ''}>${esc(sp)}</option>`).join('')}</select>
+        </div><div class="dhead-row"><button class="btn primary" data-act="newDive">Log a dive on the map</button>
+      </div>
+      ${rows.length ? `<section class="panel"><h2>Species log <small>${esc(areaName)}</small></h2>
+        <div class="tally"><span class="h">Species</span><span class="h n">Seen</span><span class="h n">Caught</span><span class="h">Last</span>
+        ${rows.map(([sp, t]) => `<span>${esc(sp)}${PROTECTED.has(sp) ? ' <span class="muted small">(protected)</span>' : ''}</span><span class="n">${t.seen}</span><span class="n">${t.caught}</span><span class="muted small">${esc(new Date(t.last).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }))}</span>`).join('')}
+        </div></section>` : ''}
+      ${shown.length ? shown.map(l => `<button class="divecard" data-dive="${esc(l.id)}">
+          <div><b>${esc(placeName(l))}</b></div>
+          <div class="when">${esc(whenLabel(l))}</div>
+          <div class="what">${[typeof l.obsFt === 'number' ? `saw ${fmtFt(l.obsFt)} ft` : '', l.depthFt ? `${l.depthFt} ft deep` : '', l.tempF ? `${l.tempF}°F` : '', l.surge ? `${l.surge} surge` : '', l.color ? `${l.color} water` : ''].filter(Boolean).join(' · ') || 'No conditions noted'}</div>
+          ${speciesOf(l).length ? `<div class="tags">${(l.caught || []).map(c => `<span class="tag caught">${esc(c.sp)} ×${c.n || 1}${c.lb ? ` · ${c.lb} lb` : ''}</span>`).join('')}${(l.seen || []).filter(sp => !(l.caught || []).some(c => c.sp === sp)).map(sp => `<span class="tag${PROTECTED.has(sp) ? ' protected' : ''}">${esc(sp)}</span>`).join('')}</div>` : ''}
+          ${l.note ? `<div class="what">${esc(l.note)}</div>` : ''}
+        </button>`).join('')
+        : `<p class="empty">${S.diveFilter ? `No ${esc(S.diveFilter)} logged in ${esc(areaName)} yet.` : `No dives logged in ${esc(areaName)} yet. Log one from the map, or from a spot's page.`}</p>`}`;
+  }
+
   // ── Rendering: shell ──────────────────────────────────────────────────────────
-  function render() { renderStatus(); renderTabs(); renderDays(); renderList(); if (S.openSpot) renderDetail(); }
+  function render() {
+    renderStatus(); renderTabs(); renderDays();
+    document.querySelectorAll('.viewseg button').forEach(b => { const on = b.dataset.view === S.view; b.classList.toggle('on', on); b.setAttribute('aria-selected', String(on)); });
+    renderView();
+    if (S.openSpot) renderDetail();
+  }
 
   function renderStatus() {
     const el = $('#status');
@@ -1187,7 +1548,7 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
       if (!r || r.missing) { html += `<div class="card"><div class="card-top"><div><div class="name">${esc(s.name)}</div><div class="sub">No wave-model data for this spot right now</div></div></div></div>`; continue; }
       const d = r.daily[dayI];
       const bestK = r.daily.reduce((bi, x, i, arr) => (x.am != null && (arr[bi].am == null || x.am > arr[bi].am) ? i : bi), 0);
-      html += `<button class="card" data-spot="${esc(s.id)}" aria-label="${esc(s.name)}: ${fmtFt(d.am)} feet ${esc(M.rating(d.am || 0))}">
+      html += `<button class="card${d.am != null ? ' e' + M.tier(d.am) : ''}" data-spot="${esc(s.id)}" aria-label="${esc(s.name)}: ${fmtFt(d.am)} feet ${esc(M.rating(d.am || 0))}">
         <div class="card-top">
           <div class="card-id">
             <div class="name">${S.favs.has(s.id) ? '<span class="star" aria-hidden="true">★</span>' : ''}${esc(s.name)}</div>
@@ -1357,30 +1718,108 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
   function openSheet(html) { $('#sheetBody').innerHTML = html; $('#sheet').hidden = false; document.body.classList.add('noscroll'); const f = $('#sheetBody input, #sheetBody select, #sheetBody button'); if (f) f.focus(); }
   function closeSheet() { $('#sheet').hidden = true; if (!S.openSpot) document.body.classList.remove('noscroll'); }
 
-  function logSheet(spotId) {
-    const s = S.byId[spotId];
-    const r = S.results[spotId];
+  // ── Dive sheet: log or edit a dive (location, time, conditions, fish) ─────────
+  // opts: { spotId } from a spot page · { lat, lon } from the map · { id } to edit.
+  // Entries live in S.logs. Only entries with a visibility number feed the model's calibration.
+  let DS = null;
+  function diveSheet(opts) {
+    const edit = opts.id ? S.logs.find(l => l.id === opts.id) : null;
+    const pos = edit ? logPos(edit) : (opts.lat != null ? [opts.lat, opts.lon] : (S.byId[opts.spotId] ? [S.byId[opts.spotId].lat, S.byId[opts.spotId].lon] : null));
+    let spotId = edit ? edit.spotId || '' : opts.spotId || '';
+    if (!edit && !spotId && pos) { const n = nearestSpot(pos[0], pos[1]); if (n && n.km <= 3) spotId = n.spot.id; }
+    DS = { id: edit ? edit.id : null, lat: pos ? pos[0] : null, lon: pos ? pos[1] : null, fromMap: !edit && opts.lat != null,
+      surge: edit && edit.surge || '', current: edit && edit.current || '', color: edit && edit.color || '',
+      seen: new Set(edit && edit.seen || []) };
+    const r = S.results[spotId] || Object.values(S.results).find(x => x && x.times);
     const nowKey = D.nowHourKey();
-    const opts = [];
-    if (r && r.times) { const ni = r.times.indexOf(nowKey); for (let i = Math.max(0, ni - 47); i <= ni; i++) opts.push(r.times[i]); }
-    opts.reverse();
-    const optHtml = opts.map((t, i) => { const h = +t.slice(11, 13); return `<option value="${t}"${i === 0 ? ' selected' : ''}>${esc(mdShort(t.slice(0, 10)))} ${hourLabel(h)}</option>`; }).join('');
-    openSheet(`<h2>Log a dive · ${esc(s.name)}</h2>
-      <p class="muted">What horizontal visibility did you actually see? Each report nudges this spot's (and this area's) predictions.</p>
-      <label>When<select id="logTime">${optHtml || `<option value="${nowKey}">Now</option>`}</select></label>
-      <label>Visibility you saw (ft)<input id="logVis" type="number" inputmode="decimal" min="0" max="150" step="1" placeholder="e.g. 15"></label>
-      <label>Notes (optional)<input id="logNote" type="text" maxlength="200" placeholder="depth, zone, surge, water color…"></label>
-      <div class="actions"><button class="btn primary" data-act="saveLog" data-spot="${esc(spotId)}">Save</button><button class="btn" data-act="closeSheet">Cancel</button></div>`);
+    const opts48 = [];
+    if (r && r.times) { const ni = r.times.indexOf(nowKey); for (let i = Math.max(0, ni - 47); i <= ni; i++) opts48.push(r.times[i]); }
+    opts48.reverse();
+    const editWhen = edit && edit.when;
+    const inList = editWhen && opts48.includes(editWhen);
+    const timeOpts = (opts48.length ? opts48 : [nowKey]).map((t, i) => { const h = +t.slice(11, 13); return `<option value="${t}"${(edit ? inList && t === editWhen : i === 0) ? ' selected' : ''}>${esc(mdShort(t.slice(0, 10)))} ${hourLabel(h)}</option>`; }).join('')
+      + `<option value="other"${edit && !inList ? ' selected' : ''}>Another date…</option>`;
+    const byDist = pos ? S.spots.map(s => [s, kmBetween(pos[0], pos[1], s.lat, s.lon)]).sort((a, b) => a[1] - b[1]) : S.spots.map(s => [s, null]);
+    const spotOpts = `<option value="">Not at a listed spot</option>` + byDist.map(([s, km]) => `<option value="${esc(s.id)}"${s.id === spotId ? ' selected' : ''}>${esc(s.name)}${km != null ? ` (${km < 1 ? '<1' : km.toFixed(km < 10 ? 1 : 0)} km)` : ''}</option>`).join('');
+    const seg = (k, vals) => `<div class="seg" role="group">${vals.map(v => `<button type="button" data-act="seg" data-k="${k}" data-v="${v}" class="${DS[k] === v ? 'on' : ''}" aria-pressed="${DS[k] === v}">${v}</button>`).join('')}</div>`;
+    const caughtRows = (edit && edit.caught || []).map(fishRow).join('');
+    openSheet(`<h2>${edit ? 'Edit dive' : 'Log a dive'}${spotId && S.byId[spotId] ? ` · ${esc(S.byId[spotId].name)}` : ''}</h2>
+      ${pos ? `<p class="muted small">${DS.fromMap || (edit && edit.lat != null) ? 'Pinned at' : 'At'} ${pos[0].toFixed(4)}, ${pos[1].toFixed(4)}</p>` : ''}
+      <label>Spot<select id="logSpot">${spotOpts}</select></label>
+      <label>When<select id="logTime">${timeOpts}</select></label>
+      <label id="logDateWrap"${edit && !inList ? '' : ' hidden'}>Date and time<input id="logDate" type="datetime-local" value="${edit && editWhen && !inList ? esc(editWhen.slice(0, 16)) : ''}"></label>
+      <label>Visibility you saw (ft)<input id="logVis" type="number" inputmode="decimal" min="0" max="150" step="1" placeholder="e.g. 15" value="${edit && typeof edit.obsFt === 'number' ? edit.obsFt : ''}"><small class="muted">Tunes this spot's forecast. Leave blank if you didn't judge it.</small></label>
+      <div class="row2">
+        <label>Depth (ft)<input id="logDepth" type="number" inputmode="decimal" min="0" max="300" value="${edit && edit.depthFt || ''}"></label>
+        <label>Water temp (°F)<input id="logTempF" type="number" inputmode="decimal" min="40" max="90" value="${edit && edit.tempF || ''}"></label>
+      </div>
+      <h3>Surge</h3>${seg('surge', ['none', 'light', 'moderate', 'strong'])}
+      <h3>Current</h3>${seg('current', ['none', 'light', 'strong'])}
+      <h3>Water colour</h3>${seg('color', ['blue', 'green', 'brown'])}
+      <h3>Fish caught</h3>
+      <div id="caughtRows">${caughtRows}</div>
+      <p id="protWarn" class="warnline" hidden></p>
+      <button type="button" class="btn small" data-act="addCaught">Add a fish</button>
+      <h3>Fish and animals seen</h3>
+      <div class="seg" id="seenChips">${SPECIES.map(sp => `<button type="button" data-act="seen" data-v="${esc(sp)}" class="${DS.seen.has(sp) ? 'on' : ''}" aria-pressed="${DS.seen.has(sp)}">${esc(sp)}</button>`).join('')}</div>
+      <label>Other species seen<input id="logSeenOther" type="text" maxlength="120" placeholder="comma-separated" value="${esc([...DS.seen].filter(sp => !SPECIES.includes(sp)).join(', '))}"></label>
+      <label>Notes<textarea id="logNote" rows="2" maxlength="300" placeholder="kelp, bait, boats, anything worth remembering">${edit && edit.note ? esc(edit.note) : ''}</textarea></label>
+      <datalist id="speciesList">${SPECIES.map(sp => `<option value="${esc(sp)}">`).join('')}</datalist>
+      <div class="actions flexwrap"><button class="btn primary" data-act="saveLog" data-spot="${esc(spotId)}">Save dive</button><button class="btn" data-act="closeSheet">Cancel</button>${edit ? `<button class="btn" data-act="delLog" data-id="${esc(edit.id)}" style="margin-left:auto">Delete dive</button>` : ''}</div>`);
+    checkProtected();
   }
-  function saveLog(spotId) {
-    const s = S.byId[spotId], r = S.results[spotId];
-    const obs = parseFloat($('#logVis').value);
-    if (!(obs >= 0)) { $('#logVis').focus(); return; }
-    const tKey = $('#logTime').value;
-    const i = r && r.times ? r.times.indexOf(tKey) : -1;
-    const predFt = i >= 0 ? r.run.vis[i] : null;
-    const tMs = Date.now() - (r && r.times ? Math.max(0, r.times.indexOf(D.nowHourKey()) - i) * 3600000 : 0);
-    S.logs.push({ id: Math.random().toString(36).slice(2, 10), spotId, group: s.group, t: tMs, when: tKey, obsFt: obs, predFt, note: $('#logNote').value.slice(0, 200) });
+  function fishRow(c) {
+    c = c || {};
+    return `<div class="fishrow"><input class="fc-sp" list="speciesList" placeholder="Species" value="${esc(c.sp || '')}" aria-label="Species caught"><input class="fc-n" type="number" inputmode="numeric" min="1" max="99" value="${c.n || 1}" aria-label="How many"><input class="fc-lb" type="number" inputmode="decimal" min="0" step="0.1" placeholder="lb" value="${c.lb || ''}" aria-label="Weight in pounds"><button type="button" class="iconbtn" data-act="rmCaught" aria-label="Remove fish">✕</button></div>`;
+  }
+  function checkProtected() {
+    const w = $('#protWarn'); if (!w) return;
+    const hit = [...document.querySelectorAll('#caughtRows .fc-sp')].map(i => i.value.trim()).filter(v => PROTECTED.has(v));
+    w.hidden = !hit.length;
+    w.textContent = hit.length ? `${[...new Set(hit)].join(' and ')} ${hit.length > 1 ? 'are' : 'is'} protected in California: no take. Log ${hit.length > 1 ? 'them' : 'it'} under "seen" instead.` : '';
+  }
+  function saveLog() {
+    const spotId = $('#logSpot').value || null;
+    const s = spotId ? S.byId[spotId] : null, r = spotId ? S.results[spotId] : null;
+    const visRaw = $('#logVis').value.trim(), obs = visRaw === '' ? null : parseFloat(visRaw);
+    if (visRaw !== '' && !(obs >= 0)) { $('#logVis').focus(); return; }
+    let when = $('#logTime').value;
+    if (when === 'other') {
+      const v = $('#logDate').value;
+      if (!/^\d{4}-\d\d-\d\dT\d\d:\d\d/.test(v)) { $('#logDate').focus(); return; }
+      when = v.slice(0, 16);
+    }
+    const caught = [...document.querySelectorAll('#caughtRows .fishrow')].map(row => ({
+      sp: row.querySelector('.fc-sp').value.trim().slice(0, 60),
+      n: Math.max(1, Math.round(parseFloat(row.querySelector('.fc-n').value) || 1)),
+      lb: parseFloat(row.querySelector('.fc-lb').value) || null,
+    })).filter(c => c.sp).map(c => (c.lb ? c : { sp: c.sp, n: c.n }));
+    const other = $('#logSeenOther').value.split(',').map(x => x.trim().slice(0, 60)).filter(Boolean);
+    const seen = [...new Set([...[...DS.seen].filter(sp => SPECIES.includes(sp)), ...other])];
+    const depth = parseFloat($('#logDepth').value), temp = parseFloat($('#logTempF').value);
+    const note = $('#logNote').value.trim().slice(0, 300);
+    if (obs == null && !caught.length && !seen.length && !note && !DS.surge && !DS.current && !DS.color && !(depth > 0) && !(temp > 0)) {
+      $('#logVis').focus(); return;
+    }
+    // time: hour key within the forecast window → model prediction for calibration; otherwise LA wall-clock time
+    const hourKey = when.slice(0, 13) + ':00';
+    const i = r && r.times ? r.times.indexOf(hourKey) : -1;
+    const predFt = obs != null && i >= 0 ? r.run.vis[i] : null;
+    const nowI = r && r.times ? r.times.indexOf(D.nowHourKey()) : -1;
+    const tMs = i >= 0 && nowI >= 0 ? Date.now() - Math.max(0, nowI - i) * 3600000 : laInstant(when.slice(0, 10), +when.slice(11, 13)) + (+when.slice(14, 16) || 0) * 60000;
+    const prev = DS.id ? S.logs.find(l => l.id === DS.id) : null;
+    const entry = {
+      id: DS.id || Math.random().toString(36).slice(2, 10), spotId, group: s ? s.group : null, t: tMs, when,
+      predFt: obs != null ? (predFt != null ? predFt : (prev && prev.when === when && prev.spotId === spotId ? prev.predFt : null)) : null, note,
+    };
+    if (obs != null) entry.obsFt = obs;
+    if (DS.lat != null) { entry.lat = DS.lat; entry.lon = DS.lon; }
+    if (depth > 0) entry.depthFt = depth;
+    if (temp > 0) entry.tempF = temp;
+    for (const k of ['surge', 'current', 'color']) if (DS[k]) entry[k] = DS[k];
+    if (caught.length) entry.caught = caught;
+    if (seen.length) entry.seen = seen;
+    S.logs = DS.id ? S.logs.map(l => (l.id === DS.id ? entry : l)) : S.logs.concat([entry]);
     D.lsSet('logs', S.logs);
     nat('success');
     closeSheet(); compute(); render();
@@ -1409,17 +1848,17 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
 
   function settingsSheet() {
     const logs = S.logs.slice().sort((a, b) => b.t - a.t);
-    const theme = document.documentElement.getAttribute('data-theme') || 'auto';
+    const theme = document.documentElement.getAttribute('data-theme') || 'dark';
     const alertsHtml = NATIVE && N.alerts ? `
       <h3>Clear-water alerts</h3>
       <label class="check"><input id="alertsOn" type="checkbox"${S.alerts.on ? ' checked' : ''}> Notify me the evening before</label>
       <label>When a saved spot's morning visibility is at least<select id="alertsFt">${[15, 20, 25, 30].map(v => `<option value="${v}"${S.alerts.ft === v ? ' selected' : ''}>${v} ft</option>`).join('')}</select></label>
       <p class="muted small">Checks your saved spots (★) for the next 3 days and sends at most one alert a day, at 6 PM. Low-confidence days are skipped. Alerts use the forecast from the app's last refresh, so open the app now and then to keep them current.</p>` : '';
     openSheet(`<h2>Settings &amp; dive log</h2>
-      <label>Theme<select id="themeSel"><option value="auto"${theme === 'auto' ? ' selected' : ''}>Match phone</option><option value="light"${theme === 'light' ? ' selected' : ''}>Light</option><option value="dark"${theme === 'dark' ? ' selected' : ''}>Dark</option></select></label>
+      <label>Look<select id="themeSel"><option value="dark"${theme === 'dark' ? ' selected' : ''}>Deep water</option><option value="light"${theme === 'light' ? ' selected' : ''}>Light</option><option value="auto"${theme === 'auto' ? ' selected' : ''}>Match phone</option></select></label>
       ${alertsHtml}
-      <h3>Your dive log (${logs.length})</h3>
-      ${logs.length ? `<ul class="logs">${logs.map(l => `<li><div><b>${esc((S.byId[l.spotId] || {}).name || l.spotId)}</b> <span class="muted">${esc(l.when ? mdShort(l.when.slice(0, 10)) + ' ' + hourLabel(+l.when.slice(11, 13)) : new Date(l.t).toLocaleDateString())}</span></div><div>saw <b>${fmtFt(l.obsFt)} ft</b> · model said ${l.predFt != null ? fmtFt(l.predFt) + ' ft' : '–'}${l.note ? ' · ' + esc(l.note) : ''}</div><button class="link danger" data-act="delLog" data-id="${esc(l.id)}">Delete</button></li>`).join('')}</ul>` : '<p class="muted">No dives logged yet. Open a spot and tap “Log what you saw”.</p>'}
+      <h3>Your dives</h3>
+      <p class="muted">${logs.length ? `${logs.length} dive${logs.length > 1 ? 's' : ''} logged. See and edit them in the Dives tab.` : 'No dives logged yet. Use the Map or a spot\'s page to log one.'}</p>
       <div class="actions flexwrap"><button class="btn" data-act="export">Export backup</button><label class="btn filebtn">Import backup<input id="importFile" type="file" accept="application/json" hidden></label><button class="btn" data-act="clearCache">Clear cached data</button></div>
       <p class="muted small">${NATIVE ? 'Your log, saved spots and tuning live on this iPhone (and in its backups).' : 'Your log, saved spots and tuning live only in this browser.'} Export a backup to move them to another device.</p>`);
   }
@@ -1441,7 +1880,7 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
         const j = JSON.parse(rd.result);
         if (j.app !== 'spearline-vis') throw new Error('not a SpearLine backup');
         const known = new Set(S.logs.map(l => l.id));
-        for (const l of (j.logs || [])) if (l && l.spotId && !known.has(l.id) && typeof l.obsFt === 'number') S.logs.push(l);
+        for (const l of (j.logs || [])) if (l && l.id && !known.has(l.id) && (l.spotId || l.lat != null) && (typeof l.obsFt === 'number' || isDive(l))) S.logs.push(l);
         Object.assign(S.overrides, j.overrides || {});
         for (const f of (j.favs || [])) S.favs.add(f);
         D.lsSet('logs', S.logs); D.lsSet('overrides', S.overrides); D.lsSet('favs', [...S.favs]);
@@ -1471,6 +1910,7 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
         <li>We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS). Satellite chlorophyll from VIIRS (NOAA-20, NOAA-21), MODIS Aqua and PACE OCI.</li>
         <li>Contains modified Copernicus Sentinel data ${esc(D.todayLocal().slice(0, 4))} (Sentinel-3 OLCI chlorophyll).</li>
         <li>Tide predictions from ${extLink('https://tidesandcurrents.noaa.gov/', 'NOAA CO-OPS')} (Center for Operational Oceanographic Products and Services).</li>
+        <li>Nautical charts on the map from ${extLink('https://nauticalcharts.noaa.gov/', 'NOAA Office of Coast Survey')}. The map is for planning only, not for navigation.</li>
       </ul>
       <p class="muted small">None of these providers endorses SpearLine Vis.</p>
       ${LINKS.privacy || LINKS.support ? `<p class="small">${[LINKS.privacy && extLink(LINKS.privacy, 'Privacy policy'), LINKS.support && extLink(LINKS.support, 'Support')].filter(Boolean).join(' · ')}</p>` : ''}
@@ -1483,36 +1923,54 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
   document.addEventListener('click', ev => {
     const ext = ev.target.closest('a[data-ext]');
     if (ext) { if (NATIVE) { ev.preventDefault(); nat('openUrl', ext.href); } return; }
-    const t = ev.target.closest('[data-group],[data-day],[data-spot],[data-act]');
+    const t = ev.target.closest('[data-group],[data-day],[data-spot],[data-act],[data-view],[data-map],[data-dive]');
     if (!t) return;
-    if (t.dataset.group) { nat('tap'); S.group = t.dataset.group; D.lsSet('group', S.group); renderTabs(); renderList(); window.scrollTo({ top: 0 }); return; }
-    if (t.dataset.day != null && !t.dataset.act) { nat('tap'); S.selDay = +t.dataset.day; renderDays(); renderList(); if (S.openSpot) renderDetail(); return; }
+    if (t.dataset.view) { nat('tap'); setView(t.dataset.view); return; }
+    if (t.dataset.map) { mapAction(t.dataset.map); return; }
+    if (t.dataset.dive && !t.dataset.act) { diveSheet({ id: t.dataset.dive }); return; }
+    if (t.dataset.group) {
+      nat('tap'); S.group = t.dataset.group; D.lsSet('group', S.group); renderTabs();
+      if (S.view === 'map') fitSpots(S.group === '★ Saved' ? S.spots.filter(s => S.favs.has(s.id)) : S.spots.filter(s => s.group === S.group));
+      else { renderView(); window.scrollTo({ top: 0 }); }
+      return;
+    }
+    if (t.dataset.day != null && !t.dataset.act) { nat('tap'); S.selDay = +t.dataset.day; renderDays(); renderView(); if (S.openSpot) renderDetail(); return; }
     const act = t.dataset.act;
     if (!act && t.dataset.spot) { openDetail(t.dataset.spot); return; }
     switch (act) {
       case 'reload': load(true); break;
       case 'close': history.length > 1 && history.state && history.state.spot ? history.back() : closeDetail(); break;
-      case 'fav': { const id = S.openSpot; if (S.favs.has(id)) S.favs.delete(id); else S.favs.add(id); D.lsSet('favs', [...S.favs]); renderTabs(); renderList(); renderDetail(); break; }
-      case 'log': logSheet(S.openSpot); break;
-      case 'saveLog': saveLog(t.dataset.spot); break;
+      case 'fav': { const id = S.openSpot; if (S.favs.has(id)) S.favs.delete(id); else S.favs.add(id); D.lsSet('favs', [...S.favs]); renderTabs(); renderView(); renderDetail(); break; }
+      case 'log': diveSheet({ spotId: S.openSpot }); break;
+      case 'saveLog': saveLog(); break;
+      case 'newDive': setView('map'); mapAction('place'); break;
+      case 'clearFilter': S.diveFilter = ''; renderView(); break;
+      case 'seg': { const k = t.dataset.k, v = t.dataset.v; DS[k] = DS[k] === v ? '' : v; t.parentNode.querySelectorAll('button').forEach(b => { const on = b.dataset.v === DS[k]; b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); }); break; }
+      case 'seen': { const v = t.dataset.v; if (DS.seen.has(v)) DS.seen.delete(v); else DS.seen.add(v); const on = DS.seen.has(v); t.classList.toggle('on', on); t.setAttribute('aria-pressed', String(on)); break; }
+      case 'addCaught': { $('#caughtRows').insertAdjacentHTML('beforeend', fishRow()); const rows = document.querySelectorAll('#caughtRows .fc-sp'); rows[rows.length - 1].focus(); break; }
+      case 'rmCaught': t.closest('.fishrow').remove(); checkProtected(); break;
       case 'tune': tuneSheet(S.openSpot); break;
       case 'saveTune': saveTune(t.dataset.spot, false); break;
       case 'resetTune': saveTune(t.dataset.spot, true); break;
       case 'settings': settingsSheet(); break;
       case 'about': aboutSheet(); break;
       case 'closeSheet': closeSheet(); break;
-      case 'sort': nat('tap'); S.sort = S.sort === 'area' ? 'vis' : 'area'; D.lsSet('sort', S.sort); renderDays(); renderList(); break;
-      case 'delLog': S.logs = S.logs.filter(l => l.id !== t.dataset.id); D.lsSet('logs', S.logs); compute(); render(); settingsSheet(); break;
+      case 'sort': nat('tap'); S.sort = S.sort === 'area' ? 'vis' : 'area'; D.lsSet('sort', S.sort); renderDays(); renderView(); break;
+      case 'delLog': S.logs = S.logs.filter(l => l.id !== t.dataset.id); D.lsSet('logs', S.logs); closeSheet(); compute(); render(); break;
       case 'export': exportBackup(); break;
       case 'clearCache': try { for (let i = localStorage.length - 1; i >= 0; i--) { const k = localStorage.key(i); if (k && /^spearline:(chl:|chlLut|tide:|snapshot)/.test(k)) localStorage.removeItem(k); } } catch (e) { /* ignore */ } closeSheet(); load(true); break;
     }
   });
   document.addEventListener('change', ev => {
-    if (ev.target.id === 'themeSel') { const v = ev.target.value; if (v === 'auto') document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme', v); D.lsSet('theme', v); syncStatusBar(); }
+    if (ev.target.id === 'themeSel') { const v = ev.target.value; document.documentElement.setAttribute('data-theme', v); D.lsSet('theme', v); syncStatusBar(); }
+    if (ev.target.id === 'logTime') $('#logDateWrap').hidden = ev.target.value !== 'other';
+    if (ev.target.id === 'diveSpecies') { S.diveFilter = ev.target.value; renderDives(); }
+    if (ev.target.id === 'diveArea') { S.diveArea = ev.target.value; renderDives(); }
     if (ev.target.id === 'alertsOn') setAlertsOn(ev.target.checked);
     if (ev.target.id === 'alertsFt') { S.alerts.ft = +ev.target.value; D.lsSet('alerts', S.alerts); scheduleAlerts(); }
     if (ev.target.id === 'importFile' && ev.target.files[0]) importBackup(ev.target.files[0]);
   });
+  document.addEventListener('input', ev => { if (ev.target.classList && ev.target.classList.contains('fc-sp')) checkProtected(); });
   document.addEventListener('keydown', ev => { if (ev.key === 'Escape') { if (!$('#sheet').hidden) closeSheet(); else if (S.openSpot) closeDetail(); } });
   $('#sheet').addEventListener('click', ev => { if (ev.target.id === 'sheet') closeSheet(); });
   window.addEventListener('popstate', () => { if (S.openSpot) closeDetail(); });
@@ -1523,7 +1981,7 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
   function syncStatusBar() {
     if (!NATIVE) return;
     const t = document.documentElement.getAttribute('data-theme');
-    const dark = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const dark = t !== 'light' && (t !== 'auto' || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches));
     nat('setStatusBarDark', dark);
   }
   if (NATIVE) {
@@ -1532,8 +1990,9 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
   }
 
   // ── Boot ──────────────────────────────────────────────────────────────────────
-  const theme = D.lsGet('theme', 'auto');
-  if (theme !== 'auto') document.documentElement.setAttribute('data-theme', theme);
+  // Deep water is the default look; "auto" follows the phone, "light" forces light.
+  const theme = D.lsGet('theme', 'dark');
+  document.documentElement.setAttribute('data-theme', ['dark', 'light', 'auto'].includes(theme) ? theme : 'dark');
   syncStatusBar();
   applyOverrides();
   const snap = D.lsGet('snapshot:v1', null);
