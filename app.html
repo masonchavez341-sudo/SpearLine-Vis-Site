@@ -156,10 +156,12 @@ main { padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
 /* ── Map ── */
 #mapView { padding-top: 10px; }
 .map { position: relative; height: max(360px, calc(100vh - 290px)); border-radius: var(--radius); overflow: hidden; background: var(--map-water); border: 1px solid var(--line); touch-action: none; user-select: none; -webkit-user-select: none; box-shadow: var(--shadow); }
-.map .tiles, .map .pins { position: absolute; inset: 0; }
-.map .tiles img { position: absolute; width: 256px; height: 256px; max-width: none; user-select: none; -webkit-user-drag: none; pointer-events: none; }
-:root:not([data-theme="light"]) .map .tiles { filter: invert(.92) hue-rotate(185deg) saturate(.75) brightness(.9) contrast(.95); }
-@media (prefers-color-scheme: light) { :root[data-theme="auto"] .map .tiles { filter: none; } }
+.map .tiles, .map .charts, .map .pins { position: absolute; inset: 0; }
+.map .charts { opacity: .9; }
+.map .tiles img, .map .charts img { position: absolute; width: 256px; height: 256px; max-width: none; user-select: none; -webkit-user-drag: none; pointer-events: none; }
+/* night map: invert the light base map so land reads dark grey-blue and water deep blue */
+:root:not([data-theme="light"]) .map .tiles, :root:not([data-theme="light"]) .map .charts { filter: invert(.9) hue-rotate(185deg) saturate(.8) brightness(.95) contrast(.9); }
+@media (prefers-color-scheme: light) { :root[data-theme="auto"] .map .tiles, :root[data-theme="auto"] .map .charts { filter: none; } }
 .pin { position: absolute; transform: translate(-50%, -50%); border: 0; padding: 0; cursor: pointer; }
 .pin.spot { min-width: 30px; height: 22px; padding: 0 6px; border-radius: 11px; font-family: var(--num); font-weight: 700; font-size: 12px; font-variant-numeric: tabular-nums;
   border: 1.5px solid rgba(255,255,255,.75); box-shadow: 0 2px 8px rgba(0,0,0,.4); }
@@ -171,7 +173,9 @@ main { padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
 .pin.dive.caught { background: #ff8a5c; }
 .map .ctrl { position: absolute; right: 10px; top: 10px; display: flex; flex-direction: column; gap: 6px; }
 .map .ctrl button { width: 38px; height: 38px; border-radius: 12px; border: 1px solid var(--line-2); background: color-mix(in srgb, var(--solid) 85%, transparent); color: var(--ink); font-size: 20px; font-weight: 600; cursor: pointer; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
-.map .credit { position: absolute; left: 6px; bottom: 6px; right: 6px; font-size: 10.5px; color: var(--ink-2); pointer-events: none; text-shadow: 0 1px 2px var(--bg); }
+.map .credit { position: absolute; left: 0; bottom: 0; max-width: 100%; padding: 3px 8px; font-size: 10.5px; color: var(--ink-2); background: color-mix(in srgb, var(--solid) 80%, transparent); border-top-right-radius: 8px; }
+.map .credit a { color: var(--ink); }
+.map .ctrl button.on { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
 .map .cross { position: absolute; left: 50%; top: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); pointer-events: none; }
 .map .cross::before, .map .cross::after { content: ""; position: absolute; background: var(--accent); box-shadow: 0 0 6px rgba(0,0,0,.6); }
 .map .cross::before { left: 21px; top: 0; width: 2px; height: 44px; } .map .cross::after { top: 21px; left: 0; height: 2px; width: 44px; }
@@ -1279,27 +1283,30 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
     if (v === 'list') renderList(); else if (v === 'map') renderMap(); else renderDives();
   }
 
-  // ── Map: NOAA nautical chart tiles, no third-party code ───────────────────────
-  // Web Mercator tiles from NOAA Office of Coast Survey's chart service (public domain, zoom 0–16).
-  const TILE = (z, x, y) => `https://gis.charttools.noaa.gov/arcgis/rest/services/MarineChart_Services/NOAACharts/MapServer/tile/${z}/${y}/${x}`;
-  const ZMIN = 7, ZMAX = 16;
-  const MAP = Object.assign({ lat: 33.85, lon: -119.25, z: 8 }, D.lsGet('map', {}), { w: 0, h: 0, tiles: new Map(), placing: false, bound: false, raf: 0 });
+  // ── Map: OpenStreetMap base + optional NOAA nautical chart, no third-party code ─
+  // Base: OpenStreetMap standard tiles (land, coastline, roads, names; tile policy allows interactive app use
+  // with visible credit; no prefetching or offline download). Overlay: NOAA Office of Coast Survey chart tiles
+  // (public domain, zoom 0–16), switched with the anchor button; areas NOAA doesn't serve simply stay hidden.
+  const BASE_TILE = (z, x, y) => `https://tile.openstreetmap.org/${z}/${x}/${y}.png`;
+  const CHART_TILE = (z, x, y) => `https://gis.charttools.noaa.gov/arcgis/rest/services/MarineChart_Services/NOAACharts/MapServer/tile/${z}/${y}/${x}`;
+  const ZMIN = 7, ZMAX = 17, CHART_ZMAX = 16;
+  const MAP = Object.assign({ lat: 33.85, lon: -119.25, z: 8, chart: false }, D.lsGet('map', {}), { w: 0, h: 0, tiles: new Map(), charts: new Map(), placing: false, bound: false, raf: 0 });
   const lon2x = (lon, z) => (lon + 180) / 360 * 256 * 2 ** z;
   const lat2y = (lat, z) => { const s = Math.sin(lat * Math.PI / 180); return (0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI)) * 256 * 2 ** z; };
   const x2lon = (x, z) => x / (256 * 2 ** z) * 360 - 180;
   const y2lat = (y, z) => { const n = Math.PI - 2 * Math.PI * y / (256 * 2 ** z); return 180 / Math.PI * Math.atan(Math.sinh(n)); };
   const clampLat = v => Math.max(31.5, Math.min(35.5, v)), clampLon = v => Math.max(-122.5, Math.min(-116.5, v));
   function setCenterPx(x, y) { MAP.lon = clampLon(x2lon(x, MAP.z)); MAP.lat = clampLat(y2lat(y, MAP.z)); }
-  function saveMapPos() { D.lsSet('map', { lat: +MAP.lat.toFixed(5), lon: +MAP.lon.toFixed(5), z: MAP.z }); }
+  function saveMapPos() { D.lsSet('map', { lat: +MAP.lat.toFixed(5), lon: +MAP.lon.toFixed(5), z: MAP.z, chart: !!MAP.chart }); }
   function scheduleDraw() { if (MAP.raf) return; MAP.raf = requestAnimationFrame(() => { MAP.raf = 0; drawMap(); }); }
 
   function renderMap() {
     const host = $('#mapView');
     if (!host.firstChild) {
-      host.innerHTML = `<div class="map" id="map" role="application" aria-label="Chart of dive spots and your dives">
-          <div class="tiles"></div><div class="pins"></div><div class="cross" hidden></div>
-          <div class="ctrl"><button data-map="in" aria-label="Zoom in">+</button><button data-map="out" aria-label="Zoom out">−</button></div>
-          <div class="credit">Chart: NOAA Office of Coast Survey · for planning, not for navigation</div>
+      host.innerHTML = `<div class="map" id="map" role="application" aria-label="Map of dive spots and your dives">
+          <div class="tiles"></div><div class="charts"></div><div class="pins"></div><div class="cross" hidden></div>
+          <div class="ctrl"><button data-map="in" aria-label="Zoom in">+</button><button data-map="out" aria-label="Zoom out">−</button><button data-map="chart" aria-label="NOAA nautical chart" aria-pressed="false" title="NOAA nautical chart">⚓</button></div>
+          <div class="credit"></div>
         </div>
         <div class="mapbar" id="mapbar"></div>
         <div class="maplegend"><span>Spot labels: 7–10 AM visibility (ft)</span><span><i></i>Your dive</span><span><i class="caught"></i>Dive with a catch</span></div>`;
@@ -1315,7 +1322,7 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
     const bar = $('#mapbar'); if (!bar) return;
     const cross = $('#map .cross'); if (cross) cross.hidden = !MAP.placing;
     if (MAP.placing) {
-      bar.innerHTML = `<p>Move the chart until the crosshair sits on your dive site.</p><button class="btn" data-map="cancel">Cancel</button><button class="btn primary" data-map="here">Use this place</button>`;
+      bar.innerHTML = `<p>Move the map until the crosshair sits on your dive site.</p><button class="btn" data-map="cancel">Cancel</button><button class="btn primary" data-map="here">Use this place</button>`;
     } else {
       const day = S.days[S.selDay];
       bar.innerHTML = `<p>${day ? `Forecast for ${esc(dayLong(day))}. ` : ''}${S.diveFilter ? `Showing dives with ${esc(S.diveFilter)}. <button class="link" data-act="clearFilter">Show all</button>` : 'Tap a spot for its forecast.'}</p><button class="btn primary" data-map="place">Log a dive here</button>`;
@@ -1342,22 +1349,12 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
     MAP.w = box.clientWidth; MAP.h = box.clientHeight;
     const z = MAP.z, n = 2 ** z;
     const ox = lon2x(MAP.lon, z) - MAP.w / 2, oy = lat2y(MAP.lat, z) - MAP.h / 2;
-    const layer = box.querySelector('.tiles'), want = new Set();
-    for (let ty = Math.floor(oy / 256); ty <= Math.floor((oy + MAP.h) / 256); ty++) {
-      if (ty < 0 || ty >= n) continue;
-      for (let tx = Math.floor(ox / 256); tx <= Math.floor((ox + MAP.w) / 256); tx++) {
-        const key = `${z}/${tx}/${ty}`; want.add(key);
-        let img = MAP.tiles.get(key);
-        if (!img) {
-          img = new Image(); img.alt = ''; img.decoding = 'async'; img.draggable = false;
-          img.onerror = () => { img.style.visibility = 'hidden'; };
-          img.src = TILE(z, ((tx % n) + n) % n, ty);
-          MAP.tiles.set(key, img); layer.appendChild(img);
-        }
-        img.style.left = Math.round(tx * 256 - ox) + 'px'; img.style.top = Math.round(ty * 256 - oy) + 'px';
-      }
-    }
-    for (const [k, img] of MAP.tiles) if (!want.has(k)) { img.remove(); MAP.tiles.delete(k); }
+    drawTiles(box.querySelector('.tiles'), MAP.tiles, BASE_TILE, z, ox, oy, true);
+    drawTiles(box.querySelector('.charts'), MAP.charts, CHART_TILE, z, ox, oy, MAP.chart && z <= CHART_ZMAX);
+    const btn = box.querySelector('[data-map="chart"]');
+    if (btn) { btn.setAttribute('aria-pressed', String(!!MAP.chart)); btn.classList.toggle('on', !!MAP.chart); }
+    const credit = box.querySelector('.credit');
+    if (credit) credit.innerHTML = `© ${extLink('https://www.openstreetmap.org/copyright', 'OpenStreetMap')} contributors${MAP.chart ? ' · Chart: NOAA Office of Coast Survey' : ''} · not for navigation`;
     box.querySelectorAll('.pins .pin').forEach(el => {
       const x = lon2x(+el.dataset.lon, z) - ox, y = lat2y(+el.dataset.lat, z) - oy;
       const vis = x > -40 && y > -40 && x < MAP.w + 40 && y < MAP.h + 40;
@@ -1366,6 +1363,26 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
     });
     // Spot labels overlap at low zoom: only show numbers from zoom 10, dots below.
     box.classList.toggle('far', z < 10);
+  }
+  function drawTiles(layer, cache, url, z, ox, oy, on) {
+    const want = new Set(), n = 2 ** z;
+    if (on) {
+      for (let ty = Math.floor(oy / 256); ty <= Math.floor((oy + MAP.h) / 256); ty++) {
+        if (ty < 0 || ty >= n) continue;
+        for (let tx = Math.floor(ox / 256); tx <= Math.floor((ox + MAP.w) / 256); tx++) {
+          const key = `${z}/${tx}/${ty}`; want.add(key);
+          let img = cache.get(key);
+          if (!img) {
+            img = new Image(); img.alt = ''; img.decoding = 'async'; img.draggable = false;
+            img.onerror = () => { img.style.visibility = 'hidden'; };
+            img.src = url(z, ((tx % n) + n) % n, ty);
+            cache.set(key, img); layer.appendChild(img);
+          }
+          img.style.left = Math.round(tx * 256 - ox) + 'px'; img.style.top = Math.round(ty * 256 - oy) + 'px';
+        }
+      }
+    }
+    for (const [k, img] of cache) if (!want.has(k)) { img.remove(); cache.delete(k); }
   }
   function zoomAt(px, py, dz) {
     const z2 = Math.max(ZMIN, Math.min(ZMAX, MAP.z + dz)); if (z2 === MAP.z) return;
@@ -1390,7 +1407,7 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
     const pts = new Map();
     let drag = null, pinch = null, moved = false, wheelAt = 0;
     const rel = e => { const r = box.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
-    const layers = () => box.querySelectorAll('.tiles, .pins');
+    const layers = () => box.querySelectorAll('.tiles, .charts, .pins');
     box.addEventListener('pointerdown', e => {
       if (e.button > 0 || e.target.closest('.ctrl')) return;
       pts.set(e.pointerId, rel(e));
@@ -1437,6 +1454,7 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
   }
   function mapAction(a) {
     if (a === 'in' || a === 'out') { nat('tap'); zoomAt(MAP.w / 2, MAP.h / 2, a === 'in' ? 1 : -1); }
+    else if (a === 'chart') { nat('tap'); MAP.chart = !MAP.chart; saveMapPos(); drawMap(); }
     else if (a === 'place') { MAP.placing = true; renderMapBar(); }
     else if (a === 'cancel') { MAP.placing = false; renderMapBar(); }
     else if (a === 'here') { MAP.placing = false; renderMapBar(); diveSheet({ lat: +MAP.lat.toFixed(5), lon: +MAP.lon.toFixed(5) }); }
@@ -1910,7 +1928,7 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
         <li>We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS). Satellite chlorophyll from VIIRS (NOAA-20, NOAA-21), MODIS Aqua and PACE OCI.</li>
         <li>Contains modified Copernicus Sentinel data ${esc(D.todayLocal().slice(0, 4))} (Sentinel-3 OLCI chlorophyll).</li>
         <li>Tide predictions from ${extLink('https://tidesandcurrents.noaa.gov/', 'NOAA CO-OPS')} (Center for Operational Oceanographic Products and Services).</li>
-        <li>Nautical charts on the map from ${extLink('https://nauticalcharts.noaa.gov/', 'NOAA Office of Coast Survey')}. The map is for planning only, not for navigation.</li>
+        <li>Map data © ${extLink('https://www.openstreetmap.org/copyright', 'OpenStreetMap contributors')}, available under the Open Database License; map tiles from the OpenStreetMap Foundation. Optional nautical chart layer from ${extLink('https://nauticalcharts.noaa.gov/', 'NOAA Office of Coast Survey')}. The map is for planning only, not for navigation.</li>
       </ul>
       <p class="muted small">None of these providers endorses SpearLine Vis.</p>
       ${LINKS.privacy || LINKS.support ? `<p class="small">${[LINKS.privacy && extLink(LINKS.privacy, 'Privacy policy'), LINKS.support && extLink(LINKS.support, 'Support')].filter(Boolean).join(' · ')}</p>` : ''}
