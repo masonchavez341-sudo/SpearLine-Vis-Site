@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SpearLine Vis: Support</title>
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<main>
+<p class="crumb"><a href="./">SpearLine Vis</a></p>
+<h1>Support</h1>
+<p>Questions, bug reports or a spot that looks wrong: email the developer (contact email being set up; check back soon). Please include the spot name, the day, and what you saw in the water if you dove it.</p>
+
+<h2>Common questions</h2>
+<h3>How is the visibility number made?</h3>
+<p>The app adds up how much light the water absorbs and scatters: clean seawater, plankton (from satellite chlorophyll), sand stirred up by swell at the bottom, onshore wind chop, and runoff after rain. Visibility follows from that total using a published ocean-optics relation. Tap ⓘ in the app for the full method and sources.</p>
+
+<h3>Why does my spot read too high or too low?</h3>
+<p>Each spot starts from an estimate. Open the spot and tap <b>Log what you saw</b> after a dive; the app learns from your logs and corrects that spot and its area. You can also use <b>Tune this spot</b> to set its baseline, depth, sand and runoff exposure.</p>
+
+<h3>What do the confidence levels mean?</h3>
+<p>High means about ±10%, Medium about ±18%, Low about ±30%. Confidence drops with older satellite passes, longer lead times, big swell and rain.</p>
+
+<h3>"No recent satellite pass": what does that mean?</h3>
+<p>Clouds or the marine layer can hide the water from satellites for days. The app then uses older passes and other satellites, and if there are none it falls back to a typical value and lowers confidence.</p>
+
+<h3>Does it work offline?</h3>
+<p>Yes. The app keeps the last forecast it downloaded and shows it, marked as an offline copy, until it can refresh.</p>
+
+<h3>How do I move my dive log to a new phone?</h3>
+<p>Settings (⚙︎) → <b>Export backup</b>, save the file to Files or send it to yourself, then on the new phone use <b>Import backup</b>.</p>
+
+<h3>How do clear-water alerts work?</h3>
+<p>Save spots with ☆, then turn on alerts in Settings and pick a threshold. The evening before a day when a saved spot's morning estimate reaches it, the app sends one notification at 6 PM. Alerts use the forecast from the app's last refresh.</p>
+
+<h2>Safety</h2>
+<p>SpearLine Vis gives estimates from open data. Conditions change fast and local factors the models can't see matter. Always check conditions yourself and dive at your own risk.</p>
+
+<p class="muted"><a href="privacy.html">Privacy policy</a></p>
+</main>
+</body>
+</html>
