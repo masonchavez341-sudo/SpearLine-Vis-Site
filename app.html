@@ -156,7 +156,25 @@ main { padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
 /* ── Map ── */
 #mapView { padding-top: 10px; }
 .map { position: relative; height: max(360px, calc(100vh - 290px)); border-radius: var(--radius); overflow: hidden; background: var(--map-water); border: 1px solid var(--line); touch-action: none; user-select: none; -webkit-user-select: none; box-shadow: var(--shadow); }
-.map .tiles, .map .charts, .map .pins { position: absolute; inset: 0; }
+.map .tiles, .map .charts, .map .pins, .map .spins, .map .struct { position: absolute; inset: 0; }
+.map .struct { width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.map .struct .slc { fill: none; stroke: #8d99a6; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.map .struct .area { stroke-width: 1.5; stroke-dasharray: 4 3; }
+.map .struct .area.seabed { fill: rgba(217,150,70,.28); stroke: #d99646; }
+.map .struct .area.obstruction { fill: rgba(176,140,255,.22); stroke: #b08cff; }
+.map .struct .area.wreck { fill: rgba(228,106,216,.22); stroke: #e46ad8; }
+.map .struct .area.kelp { fill: rgba(63,191,106,.25); stroke: #3fbf6a; }
+.map .struct .area.construction { fill: rgba(141,153,166,.55); stroke: #8d99a6; stroke-dasharray: none; }
+.pin.st { width: 18px; height: 18px; border-radius: 50%; font: 700 10px/16px var(--num); color: #10161d; border: 1.5px solid rgba(10,16,22,.75); box-shadow: 0 1px 4px rgba(0,0,0,.45); text-align: center; }
+.pin.st::after { content: ""; position: absolute; inset: -9px; }   /* 36 px touch target */
+.pin.st.rock { background: #ff7a59; } .pin.st.rock.sub { background: #10161d; color: #ff7a59; border-color: #ff7a59; }
+.pin.st.seabed { background: #d99646; border-radius: 4px; } .pin.st.kelp { background: #3fbf6a; }
+.pin.st.wreck { background: #e46ad8; } .pin.st.obstruction { background: #b08cff; } .pin.st.reef { background: #ffd166; border-radius: 4px; }
+.map .mpop { position: absolute; z-index: 3; width: 236px; transform: translate(-50%, calc(-100% - 14px)); background: var(--solid); color: var(--ink); border: 1px solid var(--line-2); border-radius: 12px; box-shadow: var(--shadow); padding: 10px 12px; font-size: 12.5px; line-height: 1.4; }
+.map .mpop h4 { margin: 0 22px 4px 0; font-size: 14px; } .map .mpop p { margin: 2px 0; color: var(--ink-2); } .map .mpop .src { font-size: 11px; color: var(--muted); margin-top: 6px; }
+.map .mpop .x { position: absolute; right: 6px; top: 4px; border: 0; background: none; color: var(--muted); font-size: 18px; cursor: pointer; width: 28px; height: 28px; }
+.map .mpop .btn { margin-top: 8px; width: 100%; }
+.maplegend .st { display: inline-block; width: 14px; height: 14px; border-radius: 50%; font: 700 8.5px/12px var(--num); text-align: center; color: #10161d; border: 1px solid rgba(10,16,22,.75); margin-right: 4px; vertical-align: -2px; }
 .map .charts { opacity: .9; }
 .map .tiles img, .map .charts img { position: absolute; width: 256px; height: 256px; max-width: none; user-select: none; -webkit-user-drag: none; pointer-events: none; }
 /* night map: invert the light base map so land reads dark grey-blue and water deep blue */
@@ -433,6 +451,26 @@ const SPOTS = [
   {id:'arch-point', name:'Arch Point', group:'Channel Islands', island:'Santa Barbara Island', access:'boat', lat:33.4884, lon:-119.0291, o:[33.4865,-119.0259], facing:99, prof:'cccddssttttssssttuurrsZZZZZZstZZZZZgggfeeeeeeeeffffffdddeeeeeeedddddddcc', depth:35, S:0.2, R:0.02, vref:47, tide:'9410079'},
   {id:'sutil-island', name:'Sutil Island', group:'Channel Islands', island:'Santa Barbara Island', access:'boat', lat:33.4639, lon:-119.0482, o:[33.4615,-119.0497], facing:215, prof:'ddddgffeeeeeeeedderrssZZZZZZsZZZZZZZZZZZZZZZZZZrrrZZsZZZZZZZuZttttssuddd', depth:40, S:0.2, R:0.02, vref:48, tide:'9410079'},
   {id:'black-cavern', name:'Black Cavern', group:'Channel Islands', island:'Santa Barbara Island', access:'boat', lat:33.4766, lon:-119.027, o:[33.4792,-119.0245], facing:89, prof:'sssssssttttsssttturrrsZZZZZZstZZZZZZZddddddddeeeeeeeeeeddddddddeeeeggggg', depth:40, S:0.2, R:0.02, vref:47, tide:'9410079'},
+
+  // ── Ventura / Rincon beaches (added Oct 2026) ─────────────────────────
+  // Appended at the end on purpose so the model cells and forecasts of the 56 spots above don't change.
+  // Location: OpenStreetMap beach (© OpenStreetMap contributors, ODbL). o/facing/prof: computed by
+  // tools/gather-ventura.mjs from the NASA GIBS land mask, same method as above. depth/S/R/vref are
+  // STARTING ESTIMATES for sandy beach breaks (more sand than the cobble reefs at Rincon, river plumes
+  // from the Ventura and Santa Clara rivers); dive logs recalibrate them. Listed north to south.
+  {id:'la-conchita', name:"La Conchita", group:'Ventura / Rincon', access:'shore', lat:34.3642, lon:-119.4506, o:[34.3605,-119.4524], facing:225, prof:'dddddddddedddddddddddffffkqqvZwhiiirvurrrrsssssttuZZZZZZqqppmkjjjjggffff', depth:15, S:1.0, R:0.9, vref:13, tide:'9411270'},   // OSM way/38246792
+  {id:'faria-beach', name:"Faria Beach", group:'Ventura / Rincon', access:'shore', lat:34.3227, lon:-119.394, o:[34.3205,-119.3974], facing:217, prof:'dddddddddedddddddddddgglmoppqZwZuZZrrrZZrrrrrsssstuZZZZZurqqqlnmkjggffff', depth:15, S:1.0, R:0.9, vref:13, tide:'9411270'},   // OSM way/467517605
+  {id:'emma-wood', name:"Emma Wood State Beach", group:'Ventura / Rincon', access:'shore', lat:34.2861, lon:-119.3271, o:[34.2823,-119.3269], facing:213, prof:'ddeeeeeeeffffggggggggggiimmnnoZZZZZZZqqrrZZrrrssssuuZZZZutrrrfffeeeeeeed', depth:15, S:1.0, R:1, vref:12, tide:'9411270'},   // OSM way/44289306
+  {id:'ventura-city-beach', name:"Ventura City Beach", group:'Ventura / Rincon', access:'shore', lat:34.2746, lon:-119.2986, o:[34.2719,-119.2985], facing:201, prof:'eeeeeeefffffggfffghhhijjjkkkklmoZuZZZZuqrrZZrrsssstuZZZgedccccccdddeeeee', depth:15, S:1.0, R:1, vref:12, tide:'9411065'},   // OSM relation/7342041
+  {id:'san-buenaventura', name:"San Buenaventura State Beach", group:'Ventura / Rincon', access:'shore', lat:34.2658, lon:-119.2807, o:[34.2641,-119.2832], facing:228, prof:'ggeefffffffggfffffffffffggghhiiiiuZZZZuqqqZZZrrssstuZZZZZusjiiiihhhggggg', depth:15, S:1.0, R:1, vref:12, tide:'9411065'},   // OSM relation/19178917
+  {id:'surfers-knoll', name:"Surfer's Knoll", group:'Ventura / Rincon', access:'shore', lat:34.2397, lon:-119.266, o:[34.2379,-119.2733], facing:243, prof:'gggggggfffeeeeeeeeeeeeeeeeegghhjZtZZZZuZqqqZZrrrsssZZZZZZussrromllllkhgg', depth:15, S:1.0, R:1, vref:12, tide:'9411065'},   // OSM node/12421816442
+  {id:'mcgrath', name:"McGrath State Beach", group:'Ventura / Rincon', access:'shore', lat:34.225, lon:-119.2583, o:[34.22,-119.2659], facing:248, prof:'ggfedeeeeefeeeeeeeeeeeeeeeggghhjZtZZZZuuqqqqZZrrssstuZZZZutssrqpnnmmmkig', depth:15, S:1.0, R:1, vref:12, tide:'9411065'},   // OSM relation/1205914
+  {id:'mandalay', name:"Mandalay State Beach", group:'Ventura / Rincon', access:'shore', lat:34.2016, lon:-119.2506, o:[34.1978,-119.2553], facing:245, prof:'geddddddeeeeddddddddfffffghhiiklZtZZZZuuZqqqqZZrrsssuZZZZuusssrqponnmigg', depth:15, S:1.0, R:0.95, vref:12, tide:'9411065'},   // OSM way/41225794
+  {id:'oxnard-beach', name:"Oxnard Beach", group:'Ventura / Rincon', access:'shore', lat:34.1808, lon:-119.2394, o:[34.1777,-119.2432], facing:253, prof:'ggeddddeeeeeeeeedddddeeeeeegghijiiiZZZuuZupqqqZZrrsstZZZZuutssrqppoojigg', depth:15, S:1.0, R:0.9, vref:12, tide:'9411065'},   // OSM way/37808275
+  {id:'hollywood-beach', name:"Hollywood Beach", group:'Ventura / Rincon', access:'shore', lat:34.167, lon:-119.2316, o:[34.1655,-119.2376], facing:297, prof:'hfffffffeeeddddddddddfffffgghgeeeeeaaaaaaaaaaaaacccssZZZZZutsssrqpookihh', depth:15, S:1.0, R:0.9, vref:12, tide:'9411065'},   // OSM way/37783716
+  {id:'silver-strand', name:"Silver Strand", group:'Ventura / Rincon', access:'shore', lat:34.1511, lon:-119.2204, o:[34.1477,-119.2231], facing:231, prof:'ggeddddeeeeeeeedddddddeeeeeffffvZZZZZZZuZZZZppqZZrrssuZZZZutssigggghhhgg', depth:15, S:1.0, R:0.9, vref:12, tide:'9411065'},   // OSM way/37783715
+  {id:'port-hueneme', name:"Port Hueneme Beach Park", group:'Ventura / Rincon', access:'shore', lat:34.1423, lon:-119.1946, o:[34.1375,-119.1942], facing:203, prof:'dddddeeeeeffffffeeggggghikZZuZZvZZZZZZZuuZZZZZpqqrrrstZZjjiifffeeeeedddd', depth:15, S:1.0, R:0.9, vref:12, tide:'9411065'},   // OSM way/39275677
+  {id:'ormond-beach', name:"Ormond Beach", group:'Ventura / Rincon', access:'shore', lat:34.1369, lon:-119.1843, o:[34.1328,-119.1851], facing:211, prof:'ddddddddeeedddddddddfffffiZZuZZvZZtZZZZuuZZZZZpqqZrrstZZZZkjkihhgddddddd', depth:15, S:1.0, R:0.95, vref:12, tide:'9411065'},   // OSM node/358790118
 ];
 
 const TIDE_STATIONS = {
@@ -1290,34 +1328,105 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
   const BASE_TILE = (z, x, y) => `https://tile.openstreetmap.org/${z}/${x}/${y}.png`;
   const CHART_TILE = (z, x, y) => `https://gis.charttools.noaa.gov/arcgis/rest/services/MarineChart_Services/NOAACharts/MapServer/tile/${z}/${y}/${x}`;
   const ZMIN = 7, ZMAX = 17, CHART_ZMAX = 16;
-  const MAP = Object.assign({ lat: 33.85, lon: -119.25, z: 8, chart: false }, D.lsGet('map', {}), { w: 0, h: 0, tiles: new Map(), charts: new Map(), placing: false, bound: false, raf: 0 });
+  const MAP = Object.assign({ lat: 33.85, lon: -119.25, z: 8, chart: false, struct: true }, D.lsGet('map', {}), { w: 0, h: 0, tiles: new Map(), charts: new Map(), placing: false, bound: false, raf: 0, pop: null, structZ: null });
   const lon2x = (lon, z) => (lon + 180) / 360 * 256 * 2 ** z;
   const lat2y = (lat, z) => { const s = Math.sin(lat * Math.PI / 180); return (0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI)) * 256 * 2 ** z; };
   const x2lon = (x, z) => x / (256 * 2 ** z) * 360 - 180;
   const y2lat = (y, z) => { const n = Math.PI - 2 * Math.PI * y / (256 * 2 ** z); return 180 / Math.PI * Math.atan(Math.sinh(n)); };
   const clampLat = v => Math.max(31.5, Math.min(35.5, v)), clampLon = v => Math.max(-122.5, Math.min(-116.5, v));
   function setCenterPx(x, y) { MAP.lon = clampLon(x2lon(x, MAP.z)); MAP.lat = clampLat(y2lat(y, MAP.z)); }
-  function saveMapPos() { D.lsSet('map', { lat: +MAP.lat.toFixed(5), lon: +MAP.lon.toFixed(5), z: MAP.z, chart: !!MAP.chart }); }
+  function saveMapPos() { D.lsSet('map', { lat: +MAP.lat.toFixed(5), lon: +MAP.lon.toFixed(5), z: MAP.z, chart: !!MAP.chart, struct: !!MAP.struct }); }
   function scheduleDraw() { if (MAP.raf) return; MAP.raf = requestAnimationFrame(() => { MAP.raf = 0; drawMap(); }); }
 
   function renderMap() {
     const host = $('#mapView');
     if (!host.firstChild) {
       host.innerHTML = `<div class="map" id="map" role="application" aria-label="Map of dive spots and your dives">
-          <div class="tiles"></div><div class="charts"></div><div class="pins"></div><div class="cross" hidden></div>
-          <div class="ctrl"><button data-map="in" aria-label="Zoom in">+</button><button data-map="out" aria-label="Zoom out">−</button><button data-map="chart" aria-label="NOAA nautical chart" aria-pressed="false" title="NOAA nautical chart">⚓</button></div>
+          <div class="tiles"></div><div class="charts"></div><svg class="struct" aria-hidden="true"><g></g></svg><div class="spins"></div><div class="pins"></div><div class="cross" hidden></div>
+          <div class="ctrl"><button data-map="in" aria-label="Zoom in">+</button><button data-map="out" aria-label="Zoom out">−</button><button data-map="chart" aria-label="NOAA nautical chart" aria-pressed="false" title="NOAA nautical chart">⚓</button><button data-map="struct" aria-label="Reefs, rocks and wrecks" aria-pressed="false" title="Reefs, rocks and wrecks">R</button></div>
           <div class="credit"></div>
         </div>
         <div class="mapbar" id="mapbar"></div>
-        <div class="maplegend"><span>Spot labels: 7–10 AM visibility (ft)</span><span><i></i>Your dive</span><span><i class="caught"></i>Dive with a catch</span></div>`;
+        <div class="maplegend"><span>Spot labels: 7–10 AM visibility (ft)</span><span><i></i>Your dive</span><span><i class="caught"></i>Dive with a catch</span></div>
+        <div class="maplegend" id="structLegend"></div>`;
       bindMap($('#map'));
-      renderMapBar(); buildPins();
+      renderMapBar(); buildPins(); buildStruct();
       if (!D.lsGet('map', null)) { fitSpots(S.spots); return; }   // first visit: frame all spots before any tile loads
     }
     renderMapBar();
     buildPins();
     drawMap();
   }
+
+  // ── Charted structure (Ventura coast): NOAA ENC rocks, rocky bottom, kelp, wrecks, obstructions,
+  // artificial reefs and jetties, embedded at build time by tools/build-structure.mjs (no run-time requests).
+  // k kind · p [lat,lon] · l line · a area outline · d VALSOU metres (negative = dries above chart datum)
+  // w water level a/c/u/d/p · c category · i chart note · y survey year
+  const STRUCTURE = /*STRUCTURE:BEGIN*/{"src":"NOAA ENC Direct (Office of Coast Survey), public domain","fetched":"2026-10-15T02:37:19.311Z","f":[{"k":"obstruction","p":[34.34243,-119.51976],"d":31.9,"w":"u","c":"wellhead","y":2021},{"k":"obstruction","p":[34.37491,-119.47313],"w":"c","c":"snag/stump","i":"Piles","y":2003},{"k":"obstruction","p":[34.34872,-119.45787],"d":14.9,"w":"u","c":"wellhead","y":2003},{"k":"obstruction","p":[34.37637,-119.48164],"w":"u","c":"snag/stump","y":2003},{"k":"obstruction","p":[34.12271,-119.17564],"d":6,"w":"u","c":"","y":2003},{"k":"obstruction","p":[34.12354,-119.18846],"d":13.4,"w":"u","c":"","y":2003},{"k":"obstruction","p":[34.11907,-119.19605],"d":16.1,"w":"u","c":"","y":2003},{"k":"obstruction","p":[34.12391,-119.17425],"d":5.1,"w":"u","c":"","y":2003},{"k":"obstruction","p":[34.12603,-119.28351],"d":21.9,"w":"u","c":"","y":2003},{"k":"obstruction","p":[34.13254,-119.26075],"d":19.8,"w":"u","c":"","y":2003},{"k":"obstruction","p":[34.15752,-119.23979],"d":11.5,"w":"u","c":"","y":2003},{"k":"obstruction","p":[34.13278,-119.19632],"d":10.6,"w":"u","c":"","y":2008},{"k":"obstruction","p":[34.13401,-119.19998],"d":10.6,"w":"u","c":"","y":2008},{"k":"obstruction","p":[34.13568,-119.20339],"d":11.5,"w":"u","c":"","y":2008},{"k":"obstruction","p":[34.15352,-119.20923],"d":4.5,"w":"u","c":"","y":2009},{"k":"obstruction","p":[34.14336,-119.21237],"d":7.6,"w":"u","c":"","y":2009},{"k":"obstruction","p":[34.14187,-119.21584],"d":17.3,"w":"u","c":"","i":"Current meter","y":2003},{"k":"obstruction","p":[34.16497,-119.2229],"w":"u","c":"snag/stump","y":2015},{"k":"obstruction","p":[34.15329,-119.20834],"d":6.7,"w":"u","c":"","y":2009},{"k":"obstruction","p":[34.15257,-119.24296],"d":14.3,"w":"u","c":"","y":2008},{"k":"obstruction","p":[34.13147,-119.20476],"d":12.4,"w":"u","c":"","y":2008},{"k":"obstruction","p":[34.16749,-119.24045],"d":9.7,"w":"u","c":"","y":2008},{"k":"obstruction","p":[34.13494,-119.20519],"d":12.4,"w":"u","c":"","y":2008},{"k":"obstruction","p":[34.14854,-119.20197],"d":7.9,"w":"u","c":"","y":2009},{"k":"obstruction","p":[34.14444,-119.21071],"w":"u","c":"foul area","y":2009},{"k":"obstruction","p":[34.17541,-119.23763],"w":"u","c":"snag/stump","y":2003},{"k":"obstruction","p":[34.13407,-119.20675],"d":12.4,"w":"u","c":"","y":2008},{"k":"obstruction","p":[34.24291,-119.28177],"d":11.2,"w":"u","c":"","y":2005},{"k":"rock","p":[34.31013,-119.36099],"w":"c","y":2003},{"k":"rock","p":[34.30747,-119.36285],"d":0,"w":"a","y":2003},{"k":"rock","p":[34.35492,-119.4391],"d":0,"w":"a","y":2003},{"k":"rock","p":[34.38394,-119.50336],"d":0,"w":"a","y":2003},{"k":"rock","p":[34.38452,-119.50697],"w":"c","y":2003},{"k":"rock","p":[34.38612,-119.51239],"w":"c","y":2003},{"k":"rock","p":[34.38144,-119.49061],"d":0,"w":"a","y":2003},{"k":"rock","p":[34.38648,-119.51682],"w":"c","y":2003},{"k":"rock","p":[34.3093,-119.35969],"w":"c","y":2003},{"k":"rock","p":[34.33741,-119.41293],"d":0,"w":"a","y":2003},{"k":"rock","p":[34.35507,-119.44008],"d":-1.5,"w":"c","y":2003},{"k":"rock","p":[34.35558,-119.44385],"d":-1.5,"w":"c","y":2003},{"k":"rock","p":[34.34051,-119.41613],"d":-0.6,"w":"c","y":2003},{"k":"rock","p":[34.37524,-119.46835],"d":-0.6,"w":"c","y":2003},{"k":"rock","p":[34.38526,-119.51068],"w":"c","y":2003},{"k":"rock","p":[34.38693,-119.51791],"w":"c","y":2003},{"k":"rock","p":[34.30983,-119.3622],"w":"c","y":2003},{"k":"rock","p":[34.38115,-119.48934],"w":"c","y":2003},{"k":"rock","p":[34.38638,-119.5141],"w":"c","y":2003},{"k":"rock","p":[34.38651,-119.51525],"d":-0.6,"w":"c","y":2003},{"k":"rock","p":[34.38404,-119.50436],"w":"c","y":2003},{"k":"rock","p":[34.38376,-119.50006],"d":0,"w":"a","y":2003},{"k":"rock","p":[34.30864,-119.35872],"d":0,"w":"a","y":2003},{"k":"rock","p":[34.38505,-119.50897],"w":"c","y":2003},{"k":"rock","p":[34.31111,-119.36054],"d":-1.2,"w":"c","y":2003},{"k":"rock","p":[34.255,-119.27278],"w":"u","y":2004},{"k":"wreck","p":[34.29446,-119.36353],"w":"c","c":"wreck showing mast/masts","y":2003},{"k":"wreck","p":[34.06583,-119.14324],"w":"u","c":"non-dangerous wreck","y":2000},{"k":"wreck","p":[34.16578,-119.26605],"d":6,"w":"u","c":"dangerous wreck","y":2003},{"k":"wreck","p":[34.12833,-119.22333],"w":"u","c":"non-dangerous wreck","y":2013},{"k":"wreck","p":[34.21932,-119.27887],"w":"u","c":"dangerous wreck","y":2003},{"k":"seabed","p":[34.28947,-119.34648],"c":"rock","y":2003},{"k":"seabed","p":[34.03167,-119.32905],"c":"rock","y":2005},{"k":"seabed","p":[34.03529,-119.49195],"c":"rock","y":2005},{"k":"seabed","p":[34.03722,-119.5182],"c":"rock","y":2005},{"k":"seabed","p":[34.03114,-119.47369],"c":"rock","y":2005},{"k":"seabed","p":[34.26321,-119.30251],"c":"rock","y":2003},{"k":"kelp","p":[34.31611,-119.37372],"y":2003},{"k":"kelp","p":[34.36559,-119.46793],"y":2003},{"k":"kelp","p":[34.35495,-119.44879],"y":2003},{"k":"kelp","p":[34.34054,-119.42836],"y":2003},{"k":"kelp","p":[34.29916,-119.35728],"y":2003},{"k":"kelp","p":[34.33108,-119.41094],"y":2003},{"k":"construction","a":[[34.35039,-119.43109],[34.35042,-119.43397],[34.35055,-119.43415],[34.35055,-119.43508],[34.35018,-119.4351],[34.35018,-119.4315],[34.34988,-119.43116],[34.35204,-119.42853],[34.35206,-119.42835],[34.35029,-119.42834],[34.3503,-119.42786],[34.35092,-119.42786],[34.35107,-119.42809],[34.35199,-119.42809],[34.35195,-119.42723],[34.35232,-119.42786],[34.35229,-119.42874],[34.35039,-119.43109]],"p":[34.35099,-119.43023],"w":"u","c":"pier","y":2013},{"k":"construction","a":[[34.34942,-119.42629],[34.34907,-119.42598],[34.34939,-119.42544],[34.34954,-119.42559],[34.34971,-119.42538],[34.34992,-119.42558],[34.34942,-119.42629]],"p":[34.3495,-119.42579],"w":"u","c":"pier","y":2013},{"k":"construction","a":[[34.14546,-119.21568],[34.14504,-119.21562],[34.14564,-119.2156],[34.14546,-119.21568]],"p":[34.1454,-119.21565],"w":"u","c":"pier","y":2009},{"k":"construction","a":[[34.27218,-119.29277],[34.27148,-119.29354],[34.27138,-119.29339],[34.27195,-119.29281],[34.27218,-119.29277]],"p":[34.27183,-119.29306],"w":"u","c":"pier","y":2003},{"k":"construction","a":[[34.26165,-119.27635],[34.26232,-119.27526],[34.26239,-119.27535],[34.26151,-119.27693],[34.26137,-119.27683],[34.26165,-119.27635]],"p":[34.26181,-119.27618],"w":"u","c":"pier","i":"Piles","y":2003},{"k":"obstruction","a":[[34.30209,-119.36885],[34.30277,-119.36888],[34.30273,-119.36984],[34.30205,-119.36977],[34.30209,-119.36885]],"p":[34.30235,-119.36924],"w":"u","c":"fish haven","y":2003},{"k":"obstruction","a":[[34.38283,-119.5058],[34.38252,-119.50574],[34.38231,-119.50521],[34.38248,-119.50438],[34.38231,-119.5035],[34.38236,-119.50334],[34.38263,-119.50325],[34.38326,-119.50328],[34.38346,-119.50281],[34.38356,-119.50157],[34.38391,-119.50154],[34.38413,-119.50211],[34.38426,-119.50307],[34.38417,-119.50391],[34.38358,-119.50542],[34.3833,-119.50569],[34.38283,-119.5058]],"p":[34.38317,-119.50391],"w":"u","c":"foul area","y":2003},{"k":"obstruction","a":[[34.15566,-119.2683],[34.15468,-119.26831],[34.15468,-119.26703],[34.15568,-119.26702],[34.15566,-119.2683]],"p":[34.15527,-119.26779],"w":"u","c":"fish haven","y":2003},{"k":"obstruction","a":[[34.24157,-119.32331],[34.24127,-119.32313],[34.24116,-119.32281],[34.24198,-119.3227],[34.24268,-119.32282],[34.24298,-119.32308],[34.24298,-119.3233],[34.24255,-119.32347],[34.24157,-119.32331]],"p":[34.24208,-119.3231],"d":16.4,"w":"u","c":"fish haven","y":2003},{"k":"obstruction","a":[[34.24297,-119.30057],[34.24301,-119.30016],[34.24486,-119.30061],[34.24482,-119.30091],[34.24297,-119.30057]],"p":[34.24373,-119.30056],"d":16.4,"w":"u","c":"fish haven","y":2011},{"k":"obstruction","a":[[34.24504,-119.26858],[34.24335,-119.26805],[34.24318,-119.26748],[34.2441,-119.26758],[34.24506,-119.26797],[34.24504,-119.26858]],"p":[34.2443,-119.26804],"w":"u","c":"","y":2003},{"k":"wreck","a":[[34.12814,-119.29751],[34.1283,-119.29539],[34.12915,-119.29465],[34.12987,-119.29435],[34.13018,-119.29491],[34.12997,-119.29762],[34.12926,-119.29816],[34.12859,-119.29834],[34.12826,-119.2981],[34.12814,-119.29751]],"p":[34.12899,-119.29665],"d":23.7,"w":"u","c":"distributed remains of wreck","y":2003},{"k":"wreck","a":[[34.13235,-119.29616],[34.13541,-119.29081],[34.1367,-119.28988],[34.13698,-119.28983],[34.13755,-119.29026],[34.1377,-119.29049],[34.13777,-119.29114],[34.1369,-119.2922],[34.13654,-119.29312],[34.1365,-119.29353],[34.13706,-119.29537],[34.13693,-119.29657],[34.13658,-119.29754],[34.13606,-119.2982],[34.13547,-119.29865],[34.13471,-119.29889],[34.1338,-119.29877],[34.13221,-119.29759],[34.13222,-119.29646],[34.13235,-119.29616]],"p":[34.13559,-119.29458],"d":20.1,"w":"u","c":"distributed remains of wreck","y":2003},{"k":"seabed","a":[[34.31953,-119.38271],[34.31947,-119.38297],[34.31891,-119.38233],[34.31937,-119.38009],[34.31912,-119.37876],[34.31924,-119.37717],[34.31971,-119.37667],[34.32111,-119.37665],[34.3202,-119.37868],[34.31953,-119.38271]],"p":[34.31962,-119.37987],"w":"c","c":"rock","y":2003},{"k":"seabed","a":[[34.02947,-119.5134],[34.02994,-119.51176],[34.0313,-119.50964],[34.03166,-119.50951],[34.03182,-119.5107],[34.03123,-119.51417],[34.03079,-119.51468],[34.03007,-119.51459],[34.02947,-119.5134]],"p":[34.03064,-119.51243],"w":"u","c":"rock","y":2019},{"k":"seabed","a":[[34.03181,-119.52196],[34.0314,-119.52239],[34.03105,-119.5202],[34.03136,-119.5189],[34.03206,-119.519],[34.03292,-119.52065],[34.03346,-119.52033],[34.03377,-119.51919],[34.03385,-119.51683],[34.03312,-119.51404],[34.03318,-119.51295],[34.03421,-119.51269],[34.03598,-119.51285],[34.03708,-119.51569],[34.0379,-119.52003],[34.03731,-119.52041],[34.03533,-119.52066],[34.03481,-119.52188],[34.03419,-119.52004],[34.03321,-119.52102],[34.03219,-119.5212],[34.03181,-119.52196]],"p":[34.03373,-119.51886],"w":"u","c":"rock","y":2019},{"k":"rock","p":[34.08303,-119.04839],"w":"c","y":2000},{"k":"rock","p":[34.08266,-119.05289],"w":"c","y":2000},{"k":"wreck","p":[34.09647,-119.09106],"w":"d","c":"wreck showing any portion of hull or superstructure","y":2000},{"k":"construction","l":[[34.17945,-119.23204],[34.17978,-119.2313],[34.17914,-119.23086],[34.1788,-119.23172]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.18255,-119.23374],[34.18275,-119.23323],[34.18274,-119.23299],[34.18287,-119.23302],[34.18328,-119.23209],[34.18315,-119.23201],[34.18322,-119.23177],[34.1834,-119.23185],[34.18375,-119.23096],[34.18316,-119.2305],[34.18219,-119.2326],[34.18233,-119.23272],[34.18225,-119.23293],[34.18207,-119.23289],[34.18182,-119.23336]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.18043,-119.23251],[34.18093,-119.23154],[34.18078,-119.23142],[34.18083,-119.23124],[34.18101,-119.23131],[34.18126,-119.23081],[34.18108,-119.2307],[34.18117,-119.23047],[34.18136,-119.23052],[34.18176,-119.22963],[34.1797,-119.22835],[34.1795,-119.22914],[34.18103,-119.23017],[34.1809,-119.23048],[34.17963,-119.22971],[34.17934,-119.23045],[34.18052,-119.23129],[34.18044,-119.23152],[34.18018,-119.23138],[34.17978,-119.23221]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.18669,-119.22308],[34.18695,-119.22322],[34.18817,-119.22311]],"w":"d","c":"rip rap","y":2008},{"k":"construction","l":[[34.13928,-119.19574],[34.14048,-119.19476]],"w":"d","c":"pier","y":2013},{"k":"construction","l":[[34.14445,-119.21015],[34.14388,-119.21009],[34.14298,-119.21209]],"w":"d","c":"pier","y":2013},{"k":"construction","l":[[34.14875,-119.20141],[34.14832,-119.20151],[34.14757,-119.20256],[34.14752,-119.20284]],"w":"d","c":"rip rap","y":2008},{"k":"construction","l":[[34.18093,-119.22423],[34.18082,-119.22423],[34.18075,-119.2239],[34.1797,-119.22381],[34.17967,-119.22479],[34.1797,-119.22488],[34.18077,-119.22473],[34.18075,-119.2244],[34.18094,-119.22441]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.18562,-119.23099],[34.18616,-119.23098],[34.18633,-119.23109],[34.18625,-119.23127]],"w":"d","c":"pier","y":2006},{"k":"construction","l":[[34.18739,-119.22854],[34.18549,-119.22856]],"w":"d","c":"pier","y":2006},{"k":"construction","l":[[34.18837,-119.22298],[34.18887,-119.22295],[34.18918,-119.22328],[34.18927,-119.2236],[34.18922,-119.22403],[34.18895,-119.22455],[34.18898,-119.22794],[34.1891,-119.22815]],"w":"d","c":"rip rap","y":2008},{"k":"construction","l":[[34.18895,-119.23002],[34.18941,-119.2298],[34.18921,-119.22926]],"w":"d","c":"pier","y":2006},{"k":"construction","l":[[34.1581,-119.224],[34.15807,-119.22431],[34.15785,-119.22436],[34.15712,-119.22563]],"w":"d","c":"rip rap","y":2010},{"k":"construction","l":[[34.17499,-119.22956],[34.17407,-119.22956]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.17212,-119.22638],[34.17215,-119.22744]],"w":"d","c":"pier","y":2007},{"k":"construction","l":[[34.15977,-119.23432],[34.15434,-119.23023]],"w":"d","c":"breakwater","y":2010},{"k":"construction","l":[[34.16798,-119.22848],[34.16507,-119.22703],[34.16529,-119.22633],[34.1652,-119.2262],[34.16462,-119.22593],[34.16431,-119.22667],[34.16279,-119.22588]],"c":"rip rap","y":2015},{"k":"construction","l":[[34.16503,-119.22284],[34.16804,-119.22278],[34.1681,-119.22265],[34.1683,-119.22264],[34.16839,-119.22278],[34.17197,-119.2227]],"c":"rip rap","y":2015},{"k":"construction","l":[[34.1723,-119.22271],[34.17277,-119.22336],[34.17383,-119.2232],[34.17496,-119.22326]],"c":"rip rap","y":2015},{"k":"construction","l":[[34.16757,-119.22483],[34.16674,-119.22469]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.16177,-119.22484],[34.16119,-119.22448],[34.16022,-119.22436],[34.15905,-119.22487]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.17264,-119.22902],[34.17359,-119.22902]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.17008,-119.22715],[34.17007,-119.22734],[34.16996,-119.22736],[34.16743,-119.226]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.15599,-119.22752],[34.15707,-119.22558]],"w":"d","c":"pier","y":2010},{"k":"construction","l":[[34.17619,-119.22839],[34.17716,-119.22837],[34.17716,-119.22921],[34.17614,-119.22925],[34.1762,-119.22969],[34.17717,-119.22968],[34.17717,-119.23031],[34.177,-119.23076]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.17594,-119.22477],[34.17647,-119.22496],[34.17649,-119.22468],[34.1762,-119.22468],[34.1762,-119.22383],[34.17692,-119.22383],[34.17689,-119.22496],[34.17662,-119.22496],[34.17659,-119.22511]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.10071,-119.09366],[34.09978,-119.09281],[34.09942,-119.09267],[34.09924,-119.09291],[34.09964,-119.09534]],"w":"d","c":"pier","y":2000},{"k":"construction","l":[[34.35195,-119.42723],[34.34992,-119.42558],[34.34964,-119.42516],[34.34597,-119.42223],[34.3447,-119.42082],[34.34297,-119.41855],[34.34213,-119.41814],[34.34186,-119.41754],[34.34202,-119.41676],[34.34062,-119.41551],[34.33957,-119.41402],[34.3378,-119.41224],[34.33754,-119.41165],[34.3373,-119.41038],[34.33456,-119.40592]],"w":"d","c":"rip rap","y":2010},{"k":"construction","l":[[34.37595,-119.47184],[34.37609,-119.47014],[34.37589,-119.46811],[34.37435,-119.46167],[34.37388,-119.46036],[34.37312,-119.45898]],"w":"d","c":"rip rap","y":2010},{"k":"construction","l":[[34.38437,-119.50774],[34.38547,-119.50669]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.38988,-119.52071],[34.39014,-119.51986]],"w":"c","c":"pier","y":2003},{"k":"construction","l":[[34.34812,-119.4449],[34.34822,-119.44495],[34.34795,-119.44501],[34.34784,-119.44585],[34.34797,-119.44602],[34.34766,-119.44605],[34.34681,-119.44556],[34.34687,-119.44539],[34.347,-119.44545],[34.34741,-119.44474],[34.34739,-119.44433],[34.34746,-119.44456]],"w":"d","c":"rip rap","y":2010},{"k":"construction","l":[[34.35558,-119.44292],[34.35516,-119.44302],[34.3551,-119.44279],[34.35553,-119.44254],[34.35562,-119.44234]],"w":"d","c":"rip rap","y":2010},{"k":"construction","l":[[34.35029,-119.42814],[34.35216,-119.42821]],"w":"u","c":"pier","y":2013},{"k":"construction","l":[[34.38599,-119.51363],[34.38559,-119.51238]],"w":"u","c":"pier","y":2003},{"k":"construction","l":[[34.38503,-119.5104],[34.3847,-119.50925],[34.38462,-119.50839]],"w":"u","c":"pier","y":2003},{"k":"construction","l":[[34.35511,-119.44288],[34.34811,-119.44459],[34.34793,-119.44479]],"w":"d","c":"pier","y":2010},{"k":"construction","l":[[34.35529,-119.43279],[34.35581,-119.43524],[34.35598,-119.43716],[34.35593,-119.43899],[34.35558,-119.43995],[34.35552,-119.44074]],"w":"d","c":"rip rap","y":2010},{"k":"construction","l":[[34.24725,-119.26609],[34.24738,-119.26518]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.24538,-119.26005],[34.24647,-119.25998]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.24651,-119.26371],[34.24668,-119.26379],[34.24679,-119.26422],[34.24752,-119.26436],[34.24786,-119.26393],[34.24866,-119.26377]],"w":"d","c":"rip rap","y":2008},{"k":"construction","l":[[34.24319,-119.26237],[34.24178,-119.26226]],"w":"d","c":"pier","y":2006},{"k":"construction","l":[[34.28393,-119.32145],[34.28275,-119.31937]],"w":"d","c":"rip rap","y":2010},{"k":"construction","l":[[34.24656,-119.26207],[34.2453,-119.2621]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.24787,-119.27238],[34.24775,-119.27138],[34.25024,-119.26936]],"w":"d","c":"pier","y":2010},{"k":"construction","l":[[34.25001,-119.26444],[34.25056,-119.2658]],"w":"d","c":"pier","y":2006},{"k":"construction","l":[[34.24366,-119.26496],[34.2438,-119.26404]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.24372,-119.26035],[34.24474,-119.26071]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.24259,-119.26799],[34.2426,-119.26857],[34.24241,-119.26876],[34.24229,-119.26855],[34.24243,-119.26797]],"w":"d","c":"groin","y":2010},{"k":"construction","l":[[34.31493,-119.36336],[34.31425,-119.3626]],"w":"d","c":"rip rap","y":2010},{"k":"construction","l":[[34.24426,-119.25861],[34.24506,-119.25891]],"w":"d","c":"pier","y":2003},{"k":"construction","l":[[34.24562,-119.27342],[34.24639,-119.2727]],"w":"d","c":"breakwater","y":2010},{"k":"construction","l":[[34.24614,-119.27264],[34.25032,-119.27362]],"w":"d","c":"breakwater","y":2010},{"k":"construction","l":[[34.25042,-119.26831],[34.25019,-119.2693],[34.25029,-119.26943],[34.25071,-119.26912],[34.25152,-119.26903],[34.25376,-119.26948]],"w":"d","c":"rip rap","y":2010},{"k":"construction","l":[[34.24582,-119.26881],[34.24631,-119.27023],[34.24626,-119.27038],[34.24578,-119.2697],[34.24566,-119.26883]],"w":"d","c":"pier","y":2010},{"k":"construction","l":[[34.29368,-119.3405],[34.29316,-119.33999],[34.293,-119.33964]],"w":"d","c":"rip rap","y":2010},{"k":"construction","l":[[34.24324,-119.26212],[34.24452,-119.26253]],"w":"d","c":"pier","y":2006},{"k":"construction","l":[[34.25397,-119.27168],[34.25431,-119.27071]],"w":"d","c":"groin","y":2010},{"k":"construction","l":[[34.3191,-119.39138],[34.31854,-119.39096],[34.31781,-119.38971],[34.31765,-119.38824],[34.31774,-119.38746],[34.31819,-119.38626]],"w":"d","c":"rip rap","y":2010},{"k":"construction","l":[[34.24908,-119.26774],[34.24874,-119.26811],[34.24846,-119.26814],[34.24794,-119.26864],[34.248,-119.26846]],"w":"d","c":"rip rap","y":2010},{"k":"construction","l":[[34.31959,-119.37012],[34.31729,-119.36614]],"w":"d","c":"rip rap","y":2010},{"k":"construction","l":[[34.27499,-119.291],[34.27272,-119.2922],[34.27217,-119.29275]],"w":"d","c":"pier","y":2010},{"k":"obstruction","a":[[34.08323,-119.04367],[34.08242,-119.03845],[34.08292,-119.03609],[34.08342,-119.0374],[34.08384,-119.0393],[34.08388,-119.0404],[34.08433,-119.04201],[34.08444,-119.04288],[34.08446,-119.04466],[34.08323,-119.04367]],"p":[34.08362,-119.04085],"w":"u","c":"","y":2000},{"k":"obstruction","a":[[34.08417,-119.06113],[34.08399,-119.06076],[34.08412,-119.05936],[34.08399,-119.05775],[34.08341,-119.05635],[34.08341,-119.05479],[34.08467,-119.05292],[34.08545,-119.05461],[34.08562,-119.0555],[34.08582,-119.0577],[34.08576,-119.05879],[34.08562,-119.05949],[34.08526,-119.06004],[34.08538,-119.06137],[34.08417,-119.06113]],"p":[34.08472,-119.05811],"w":"u","c":"","y":2000},{"k":"obstruction","p":[34.22148,-119.28484],"w":"u","c":"","y":2013},{"k":"obstruction","p":[34.1167,-119.27651],"d":25.6,"w":"u","c":"wellhead","i":"Covered","y":2013},{"k":"wreck","p":[34.13606,-119.29041],"d":20.1,"w":"u","c":"dangerous wreck","y":2013},{"k":"seabed","p":[34.04257,-119.27992],"c":"rock","y":2000},{"k":"kelp","p":[34.29701,-119.34577],"y":2000},{"k":"kelp","p":[34.30556,-119.35456],"y":2000},{"k":"kelp","p":[34.30256,-119.36175],"y":2000},{"k":"kelp","p":[34.36835,-119.46119],"y":2000},{"k":"kelp","p":[34.3689,-119.47519],"y":2000},{"k":"construction","l":[[34.34765,-119.44438],[34.35565,-119.44247]],"w":"d","c":"pier","y":2000}]}/*STRUCTURE:END*/;
+  const STRUCT_ZMIN = 11;
+  function stKind(f) {
+    if (f.k === 'rock') return f.w === 'u' ? ['rock sub', 'R', 'Submerged rock'] : f.w === 'a' ? ['rock', 'R', 'Rock awash at chart datum'] : ['rock', 'R', 'Rock that covers and uncovers'];
+    if (f.k === 'seabed') return ['seabed', 'B', 'Rocky bottom'];
+    if (f.k === 'kelp') return ['kelp', 'K', 'Kelp'];
+    if (f.k === 'wreck') return ['wreck', 'W', 'Wreck'];
+    if (f.k === 'obstruction' && f.c === 'fish haven') return ['reef', 'A', 'Artificial reef (fish haven)'];
+    if (f.k === 'obstruction') return ['obstruction', 'O', /wellhead/i.test((f.c || '') + (f.i || '')) ? 'Wellhead' : 'Underwater obstruction'];
+    return null;
+  }
+  function stDetail(f) {
+    const [, , title] = stKind(f), lines = [];
+    if (f.c && f.c !== 'fish haven' && f.c !== 'wellhead') lines.push(f.c.charAt(0).toUpperCase() + f.c.slice(1));
+    if (f.i && !/^covered$/i.test(f.i)) lines.push(f.i);
+    if (f.d != null) lines.push(f.d < 0 ? `Dries about ${Math.round(-f.d * M2FT)} ft above the lowest tides (MLLW)` : f.d === 0 ? 'At the surface at the lowest tides (MLLW)' : `About ${Math.round(f.d * M2FT)} ft deep at the lowest tides (MLLW)`);
+    else if (f.w === 'c') lines.push('Shows at low tide, covered at high tide');
+    else if (f.w === 'u') lines.push('Always under water; depth not charted');
+    return { title, lines };
+  }
+  function structOn() { return MAP.struct && MAP.z >= STRUCT_ZMIN; }
+  function buildStruct() {
+    const layer = $('#map .spins'); if (!layer) return;
+    let html = '';
+    STRUCTURE.f.forEach((f, i) => {
+      const k = f.p && stKind(f); if (!k) return;
+      html += `<button class="pin st ${k[0]}" data-map="st" data-i="${i}" data-lat="${f.p[0]}" data-lon="${f.p[1]}" aria-label="${esc(k[2])}">${k[1]}</button>`;
+    });
+    layer.innerHTML = html;
+  }
+  function drawStruct(box, z, ox, oy) {
+    const svg = box.querySelector('.struct'), g = svg && svg.firstChild, spins = box.querySelector('.spins');
+    if (!svg) return;
+    const on = structOn();
+    svg.style.display = spins.style.display = on ? '' : 'none';
+    if (on) {
+      if (MAP.structZ !== z) {    // paths in world pixels at this zoom; panning only moves the group
+        let h = '';
+        const pt = q => `${(lon2x(q[1], z)).toFixed(1)},${(lat2y(q[0], z)).toFixed(1)}`;
+        for (const f of STRUCTURE.f) {
+          if (f.l) h += `<polyline class="slc" points="${f.l.map(pt).join(' ')}"/>`;
+          if (f.a) h += `<polygon class="area ${f.k}" points="${f.a.map(pt).join(' ')}"/>`;
+        }
+        g.innerHTML = h; MAP.structZ = z;
+      }
+      g.setAttribute('transform', `translate(${(-ox).toFixed(1)},${(-oy).toFixed(1)})`);
+    }
+    const leg = $('#structLegend');
+    if (leg) leg.innerHTML = !MAP.struct ? '' : on
+      ? `<span><b class="st" style="background:#ff7a59">R</b>Rock</span><span><b class="st" style="background:#d99646;border-radius:3px">B</b>Rocky bottom</span><span><b class="st" style="background:#3fbf6a">K</b>Kelp</span><span><b class="st" style="background:#ffd166;border-radius:3px">A</b>Artificial reef</span><span><b class="st" style="background:#e46ad8">W</b>Wreck</span><span><b class="st" style="background:#b08cff">O</b>Obstruction</span><span>Grey lines: jetties, breakwaters, piers. NOAA chart data, Ventura coast · not for navigation</span>`
+      : `<span>Zoom in on the Ventura coast to see charted reefs, rocks and wrecks.</span>`;
+  }
+  function showPop(i) {
+    const f = STRUCTURE.f[i], box = $('#map'); if (!f || !box) return;
+    closePop();
+    const { title, lines } = stDetail(f);
+    const el = document.createElement('div');
+    el.className = 'mpop'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', title);
+    el.dataset.lat = f.p[0]; el.dataset.lon = f.p[1];
+    el.innerHTML = `<button class="x" data-map="popclose" aria-label="Close">×</button><h4>${esc(title)}</h4>${lines.map(t => `<p>${esc(t)}</p>`).join('')}
+      <p class="src">NOAA chart data${f.y ? `, surveyed ${f.y}` : ''}. Position approximate · not for navigation.</p>
+      <button class="btn" data-map="logst" data-i="${i}">Log a dive here</button>`;
+    box.appendChild(el); MAP.pop = el; drawMap();
+  }
+  function closePop() { if (MAP.pop) { MAP.pop.remove(); MAP.pop = null; } }
   function renderMapBar() {
     const bar = $('#mapbar'); if (!bar) return;
     const cross = $('#map .cross'); if (cross) cross.hidden = !MAP.placing;
@@ -1355,9 +1464,13 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
     if (btn) { btn.setAttribute('aria-pressed', String(!!MAP.chart)); btn.classList.toggle('on', !!MAP.chart); }
     const credit = box.querySelector('.credit');
     if (credit) credit.innerHTML = `© ${extLink('https://www.openstreetmap.org/copyright', 'OpenStreetMap')} contributors${MAP.chart ? ' · Chart: NOAA Office of Coast Survey' : ''} · not for navigation`;
-    box.querySelectorAll('.pins .pin').forEach(el => {
+    const sb = box.querySelector('[data-map="struct"]');
+    if (sb) { sb.setAttribute('aria-pressed', String(!!MAP.struct)); sb.classList.toggle('on', !!MAP.struct); }
+    drawStruct(box, z, ox, oy);
+    if (MAP.pop && !structOn()) closePop();
+    box.querySelectorAll(`.pins .pin${structOn() ? ', .spins .pin, .mpop' : ''}`).forEach(el => {
       const x = lon2x(+el.dataset.lon, z) - ox, y = lat2y(+el.dataset.lat, z) - oy;
-      const vis = x > -40 && y > -40 && x < MAP.w + 40 && y < MAP.h + 40;
+      const vis = el.classList.contains('mpop') || (x > -40 && y > -40 && x < MAP.w + 40 && y < MAP.h + 40);
       el.style.display = vis ? '' : 'none';
       if (vis) { el.style.left = x + 'px'; el.style.top = y + 'px'; }
     });
@@ -1407,9 +1520,9 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
     const pts = new Map();
     let drag = null, pinch = null, moved = false, wheelAt = 0;
     const rel = e => { const r = box.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
-    const layers = () => box.querySelectorAll('.tiles, .charts, .pins');
+    const layers = () => box.querySelectorAll('.tiles, .charts, .struct, .spins, .pins');
     box.addEventListener('pointerdown', e => {
-      if (e.button > 0 || e.target.closest('.ctrl')) return;
+      if (e.button > 0 || e.target.closest('.ctrl, .mpop')) return;
       pts.set(e.pointerId, rel(e));
       if (pts.size === 1) { const [x, y] = rel(e); drag = { x, y, cx: lon2x(MAP.lon, MAP.z), cy: lat2y(MAP.lat, MAP.z) }; moved = false; }
       if (pts.size === 2) {
@@ -1444,6 +1557,7 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
     };
     window.addEventListener('pointerup', end); window.addEventListener('pointercancel', end);
     box.addEventListener('click', e => { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
+    box.addEventListener('click', e => { if (MAP.pop && !e.target.closest('.mpop, .pin.st')) closePop(); });
     box.addEventListener('dblclick', e => { const [x, y] = rel(e); zoomAt(x, y, 1); });
     box.addEventListener('wheel', e => {
       e.preventDefault();
@@ -1452,7 +1566,11 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
     }, { passive: false });
     window.addEventListener('resize', () => { if (S.view === 'map') drawMap(); });
   }
-  function mapAction(a) {
+  function mapAction(a, el) {
+    if (a === 'st') { nat('tap'); showPop(+el.dataset.i); return; }
+    if (a === 'popclose') { closePop(); return; }
+    if (a === 'logst') { const f = STRUCTURE.f[+el.dataset.i]; closePop(); if (f) diveSheet({ lat: f.p[0], lon: f.p[1] }); return; }
+    if (a === 'struct') { nat('tap'); MAP.struct = !MAP.struct; closePop(); saveMapPos(); drawMap(); return; }
     if (a === 'in' || a === 'out') { nat('tap'); zoomAt(MAP.w / 2, MAP.h / 2, a === 'in' ? 1 : -1); }
     else if (a === 'chart') { nat('tap'); MAP.chart = !MAP.chart; saveMapPos(); drawMap(); }
     else if (a === 'place') { MAP.placing = true; renderMapBar(); }
@@ -1559,6 +1677,7 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
     const dayI = S.selDay;
     const am = s => { const r = S.results[s.id]; return r && r.daily ? r.daily[dayI].am : -1; };
     if (S.sort === 'vis') spots = spots.slice().sort((a, b) => am(b) - am(a));
+    else if (S.group === 'Ventura / Rincon') spots = spots.slice().sort((a, b) => a.lon - b.lon);   // up the coast, Rincon to Ormond
     let html = '', lastIsland = null;
     for (const s of spots) {
       const r = S.results[s.id];
@@ -1928,7 +2047,7 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
         <li>We acknowledge the use of imagery provided by services from NASA's Global Imagery Browse Services (GIBS), part of NASA's Earth Science Data and Information System (ESDIS). Satellite chlorophyll from VIIRS (NOAA-20, NOAA-21), MODIS Aqua and PACE OCI.</li>
         <li>Contains modified Copernicus Sentinel data ${esc(D.todayLocal().slice(0, 4))} (Sentinel-3 OLCI chlorophyll).</li>
         <li>Tide predictions from ${extLink('https://tidesandcurrents.noaa.gov/', 'NOAA CO-OPS')} (Center for Operational Oceanographic Products and Services).</li>
-        <li>Map data © ${extLink('https://www.openstreetmap.org/copyright', 'OpenStreetMap contributors')}, available under the Open Database License; map tiles from the OpenStreetMap Foundation. Optional nautical chart layer from ${extLink('https://nauticalcharts.noaa.gov/', 'NOAA Office of Coast Survey')}. The map is for planning only, not for navigation.</li>
+        <li>Map data © ${extLink('https://www.openstreetmap.org/copyright', 'OpenStreetMap contributors')}, available under the Open Database License; map tiles from the OpenStreetMap Foundation. Optional nautical chart layer from ${extLink('https://nauticalcharts.noaa.gov/', 'NOAA Office of Coast Survey')}. Reef, rock, kelp, wreck and jetty symbols on the Ventura coast come from NOAA Electronic Navigational Charts (public domain), built into the app; positions are approximate. The map is for planning only, not for navigation.</li>
       </ul>
       <p class="muted small">None of these providers endorses SpearLine Vis.</p>
       ${LINKS.privacy || LINKS.support ? `<p class="small">${[LINKS.privacy && extLink(LINKS.privacy, 'Privacy policy'), LINKS.support && extLink(LINKS.support, 'Support')].filter(Boolean).join(' · ')}</p>` : ''}
@@ -1944,7 +2063,7 @@ if (typeof module !== 'undefined') module.exports = { SPOTS, TIDE_STATIONS, GROU
     const t = ev.target.closest('[data-group],[data-day],[data-spot],[data-act],[data-view],[data-map],[data-dive]');
     if (!t) return;
     if (t.dataset.view) { nat('tap'); setView(t.dataset.view); return; }
-    if (t.dataset.map) { mapAction(t.dataset.map); return; }
+    if (t.dataset.map) { mapAction(t.dataset.map, t); return; }
     if (t.dataset.dive && !t.dataset.act) { diveSheet({ id: t.dataset.dive }); return; }
     if (t.dataset.group) {
       nat('tap'); S.group = t.dataset.group; D.lsSet('group', S.group); renderTabs();
